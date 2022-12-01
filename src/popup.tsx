@@ -1,19 +1,35 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
+import { displayNotes } from "./utils";
 
 interface PopupProps {
-  text: string;
+  data: { [url: string]: { [note: string]: { posUrl: string } } };
 }
 
-const Popup: React.FC<PopupProps> = ({ text }) => {
+const Popup: React.FC<PopupProps> = ({ data }) => {
   const [currentURL, setCurrentURL] = useState<string>();
+  // const [notes, setNotes] = useState<{ [note: string]: {} }>();
+  const [notes, setNotes] = useState<string>();
 
   useEffect(() => {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
       setCurrentURL(tabs[0].url);
     });
   }, []);
-  console.log(text);
+
+  useEffect(() => {
+    if (!currentURL) {
+      return;
+    }
+    // setNotes(data[currentURL]);
+    const tmp = displayNotes(data[currentURL]);
+    // setNotes(tmp);
+    const ele = document.getElementById("notes");
+    if (ele) {
+      // ele.addEventListener("click", openIndex);
+      ele.innerHTML = tmp;
+    }
+  }, [currentURL]);
 
   chrome.storage.onChanged.addListener((changes, namespace) => {
     for (let [key, { oldValue, newValue }] of Object.entries(changes)) {
@@ -23,6 +39,7 @@ const Popup: React.FC<PopupProps> = ({ text }) => {
       );
     }
   });
+  const x = "yoyoyoy";
 
   return (
     <>
@@ -30,17 +47,9 @@ const Popup: React.FC<PopupProps> = ({ text }) => {
         <li>Current URL: {currentURL}</li>
         <li>Current Time: {new Date().toLocaleTimeString()}</li>
       </ul>
-      {/* <button
-        onClick={() => {
-          setCount(count + 1);
-          console.log(count);
-        }}
-        style={{ marginRight: "5px" }}
-      >
-        count up
-      </button>
-      <button onClick={changeBackground}>change background</button> */}
-      <div>{text}</div>
+      <div>
+        {data[currentURL as string] ? <div id={"notes"}></div> : "NO NOTES"}
+      </div>
     </>
   );
 };
@@ -52,7 +61,7 @@ chrome.storage.local.get(function (data) {
   console.log(data);
   ReactDOM.render(
     <React.StrictMode>
-      <Popup text={data.data} />
+      <Popup data={data.data} />
     </React.StrictMode>,
     document.getElementById("root")
   );

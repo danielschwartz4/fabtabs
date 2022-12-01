@@ -33,7 +33,6 @@ const contextMenus = () => {
           obj[pageUrl] = {};
         }
         obj[pageUrl][selectionText] = { posUrl: linkToHighlight };
-        // console.log(obj);
 
         chrome.storage.local.set({ data: obj }).then(() => {
           console.log("Value is set to " + obj);
