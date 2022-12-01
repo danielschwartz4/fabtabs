@@ -6,13 +6,7 @@ interface PopupProps {
 }
 
 const Popup: React.FC<PopupProps> = ({ text }) => {
-  const [count, setCount] = useState(0);
   const [currentURL, setCurrentURL] = useState<string>();
-  const [selectionText, setSelectionText] = useState<string>();
-
-  useEffect(() => {
-    chrome.action.setBadgeText({ text: count.toString() });
-  }, [count]);
 
   useEffect(() => {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
@@ -30,31 +24,13 @@ const Popup: React.FC<PopupProps> = ({ text }) => {
     }
   });
 
-  const changeBackground = () => {
-    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-      console.log(tabs);
-      const tab = tabs[0];
-      if (tab.id) {
-        chrome.tabs.sendMessage(
-          tab.id,
-          {
-            color: "#555555",
-          },
-          (msg) => {
-            console.log("result message:", msg);
-          }
-        );
-      }
-    });
-  };
-
   return (
     <>
       <ul style={{ minWidth: "700px" }}>
         <li>Current URL: {currentURL}</li>
         <li>Current Time: {new Date().toLocaleTimeString()}</li>
       </ul>
-      <button
+      {/* <button
         onClick={() => {
           setCount(count + 1);
           console.log(count);
@@ -63,7 +39,7 @@ const Popup: React.FC<PopupProps> = ({ text }) => {
       >
         count up
       </button>
-      <button onClick={changeBackground}>change background</button>
+      <button onClick={changeBackground}>change background</button> */}
       <div>{text}</div>
     </>
   );
@@ -76,7 +52,7 @@ chrome.storage.local.get(function (data) {
   console.log(data);
   ReactDOM.render(
     <React.StrictMode>
-      <Popup text={data.text} />
+      <Popup text={data.data} />
     </React.StrictMode>,
     document.getElementById("root")
   );
