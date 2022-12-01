@@ -21,19 +21,19 @@ const contextMenus = () => {
         if (data === undefined) {
           data = {};
         }
-        if (data[pageUrl] === undefined) {
-          data[pageUrl] = {};
-        }
 
         const linkToHighlight =
           pageUrl + "#:~:text=" + encodeURIComponent(selectionText);
 
-        const obj: { [url: string]: { [note: string]: {} } } = { ...data };
-        console.log("C");
-        console.log(obj);
+        const obj: { [url: string]: { [note: string]: {} } } = {
+          ...data["data"],
+        };
+
+        if (obj[pageUrl] === undefined) {
+          obj[pageUrl] = {};
+        }
         obj[pageUrl][selectionText] = { posUrl: linkToHighlight };
-        console.log("D");
-        console.log(obj);
+        // console.log(obj);
 
         chrome.storage.local.set({ data: obj }).then(() => {
           console.log("Value is set to " + obj);
