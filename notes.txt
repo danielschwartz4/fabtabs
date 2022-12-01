@@ -16,3 +16,10 @@ data: {
 		}
 	},
 }
+
+
+TODO
+- Folder interface in popup
+- Notes
+- Style
+
