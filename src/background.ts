@@ -1,3 +1,6 @@
+import { DataType } from "./types/types";
+import { processText } from "./utils";
+
 const contextMenus = () => {
   chrome.runtime.onInstalled.addListener(async () => {
     // remove existing menu items
@@ -16,12 +19,7 @@ const contextMenus = () => {
       console.log("no text selected");
       return;
     }
-    if (selectionText.split(" ").length > 2) {
-      let lastIndex = selectionText.lastIndexOf(" ");
-      const firstIndex = selectionText.indexOf(" ") + 1;
-      selectionText = selectionText.substring(0, lastIndex);
-      selectionText = selectionText.substring(firstIndex);
-    }
+    selectionText = processText(selectionText);
 
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
       chrome.storage.local.get("data", function (data) {
@@ -32,14 +30,20 @@ const contextMenus = () => {
         const linkToHighlight =
           pageUrl + "#:~:text=" + encodeURIComponent(selectionText as string);
 
-        const obj: { [url: string]: { [note: string]: {} } } = {
+        const obj: DataType = {
           ...data["data"],
         };
 
         if (obj[pageUrl] === undefined) {
-          obj[pageUrl] = {};
+          obj[pageUrl] = { notes: {}, title: tabs[0].title as string };
         }
-        obj[pageUrl][selectionText as string] = { posUrl: linkToHighlight };
+        if (selectionText && selectionText.split(" ").length > 30) {
+          const index = selectionText.indexOf(" ") + 240;
+          selectionText = selectionText.substring(0, index) + "...";
+        }
+        obj[pageUrl]["notes"][selectionText as string] = {
+          posUrl: linkToHighlight,
+        };
 
         chrome.storage.local.set({ data: obj }).then(() => {
           console.log("Value is set to " + obj);

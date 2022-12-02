@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
+import FolderStructure from "./components/FolderStructure/FolderStructure";
+import { DataType } from "./types/types";
 import { displayNotes } from "./utils";
 
 interface PopupProps {
-  data: { [url: string]: { [note: string]: { posUrl: string } } };
+  data: DataType;
 }
 
 const Popup: React.FC<PopupProps> = ({ data }) => {
   const [currentURL, setCurrentURL] = useState<string>();
-  // const [notes, setNotes] = useState<{ [note: string]: {} }>();
   const [notes, setNotes] = useState<string>();
 
   useEffect(() => {
@@ -21,12 +22,9 @@ const Popup: React.FC<PopupProps> = ({ data }) => {
     if (!currentURL) {
       return;
     }
-    // setNotes(data[currentURL]);
-    const tmp = displayNotes(data[currentURL]);
-    // setNotes(tmp);
+    const tmp = displayNotes(data[currentURL]["notes"]);
     const ele = document.getElementById("notes");
     if (ele) {
-      // ele.addEventListener("click", openIndex);
       ele.innerHTML = tmp;
     }
   }, [currentURL]);
@@ -39,25 +37,21 @@ const Popup: React.FC<PopupProps> = ({ data }) => {
       );
     }
   });
-  const x = "yoyoyoy";
 
   return (
-    <>
-      <ul style={{ minWidth: "700px" }}>
-        <li>Current URL: {currentURL}</li>
-        <li>Current Time: {new Date().toLocaleTimeString()}</li>
-      </ul>
+    <div style={{ height: "200px", width: "400px" }}>
+      <div style={{ display: "flex", marginLeft: "auto" }}>FabTabs</div>
+      <FolderStructure data={data}></FolderStructure>
       <div>
         {data[currentURL as string] ? <div id={"notes"}></div> : "NO NOTES"}
       </div>
-    </>
+    </div>
   );
 };
 
 export default Popup;
 
 chrome.storage.local.get(function (data) {
-  console.log("yo");
   console.log(data);
   ReactDOM.render(
     <React.StrictMode>
