@@ -16,6 +16,13 @@ const contextMenus = () => {
       console.log("no text selected");
       return;
     }
+    if (selectionText.split(" ").length > 2) {
+      let lastIndex = selectionText.lastIndexOf(" ");
+      const firstIndex = selectionText.indexOf(" ") + 1;
+      selectionText = selectionText.substring(0, lastIndex);
+      selectionText = selectionText.substring(firstIndex);
+    }
+
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
       chrome.storage.local.get("data", function (data) {
         if (data === undefined) {
@@ -23,7 +30,7 @@ const contextMenus = () => {
         }
 
         const linkToHighlight =
-          pageUrl + "#:~:text=" + encodeURIComponent(selectionText);
+          pageUrl + "#:~:text=" + encodeURIComponent(selectionText as string);
 
         const obj: { [url: string]: { [note: string]: {} } } = {
           ...data["data"],
@@ -32,7 +39,7 @@ const contextMenus = () => {
         if (obj[pageUrl] === undefined) {
           obj[pageUrl] = {};
         }
-        obj[pageUrl][selectionText] = { posUrl: linkToHighlight };
+        obj[pageUrl][selectionText as string] = { posUrl: linkToHighlight };
 
         chrome.storage.local.set({ data: obj }).then(() => {
           console.log("Value is set to " + obj);
