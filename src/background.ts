@@ -26,6 +26,9 @@ const contextMenus = () => {
         if (data === undefined) {
           data = {};
         }
+        if (pageUrl.includes("#")) {
+          pageUrl = pageUrl.substring(0, pageUrl.indexOf("#"));
+        }
 
         const linkToHighlight =
           pageUrl + "#:~:text=" + encodeURIComponent(selectionText as string);

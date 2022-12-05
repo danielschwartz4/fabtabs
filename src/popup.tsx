@@ -10,11 +10,15 @@ interface PopupProps {
 
 const Popup: React.FC<PopupProps> = ({ data }) => {
   const [currentURL, setCurrentURL] = useState<string>();
-  const [notes, setNotes] = useState<string>();
 
   useEffect(() => {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-      setCurrentURL(tabs[0].url);
+      const url = tabs[0].url;
+      if (url?.includes("#")) {
+        setCurrentURL(url.substring(0, url.indexOf("#")));
+      } else {
+        setCurrentURL(url);
+      }
     });
   }, []);
 

@@ -22,7 +22,7 @@ const FolderStructure: React.FC<FolderStructureProps> = ({ data }) => {
             title={data[key]["title"]}
             url={key}
             notes={data[key]["notes"]}
-          ></Folder>
+          />
         );
       })}
     </div>
