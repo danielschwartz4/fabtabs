@@ -45,9 +45,21 @@ const Popup: React.FC<PopupProps> = ({ data }) => {
   return (
     <div style={{ height: "200px", width: "400px" }}>
       <div style={{ display: "flex", marginLeft: "auto" }}>FabTabs</div>
-      <FolderStructure data={data}></FolderStructure>
-      <div>
-        {data[currentURL as string] ? <div id={"notes"}></div> : "NO NOTES"}
+      {data ? (
+        <FolderStructure data={data}></FolderStructure>
+      ) : (
+        "NO DATA SAVED YET"
+      )}
+      <div style={{ marginTop: "16px" }}>
+        {data[currentURL as string] ? (
+          <div>
+            Notes:
+            <br />
+            <div id={"notes"}></div>
+          </div>
+        ) : (
+          "NO NOTES"
+        )}
       </div>
     </div>
   );

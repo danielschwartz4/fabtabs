@@ -13,17 +13,11 @@ const FolderStructure: React.FC<FolderStructureProps> = ({ data }) => {
         display: "grid",
         gridTemplateColumns: "auto auto auto",
         backgroundColor: "blanchedalmond",
+        gap: "4px",
       }}
     >
       {Object.keys(data).map(function (key) {
-        return (
-          <Folder
-            key={key}
-            title={data[key]["title"]}
-            url={key}
-            notes={data[key]["notes"]}
-          />
-        );
+        return <Folder url={key} data={data[key]} />;
       })}
     </div>
   );
