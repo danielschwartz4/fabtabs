@@ -3,13 +3,18 @@ import ReactDOM from "react-dom";
 import FolderStructure from "./components/FolderStructure/FolderStructure";
 import { DataType } from "./types/types";
 import { displayNotes } from "./utils";
+import "./styles/folder.css";
+import Popover from "./components/Popover";
 
 interface PopupProps {
-  data: DataType;
+  localData: DataType;
 }
 
-const Popup: React.FC<PopupProps> = ({ data }) => {
+const Popup: React.FC<PopupProps> = ({ localData }) => {
+  const [data, setData] = useState<DataType>();
+
   const [currentURL, setCurrentURL] = useState<string>();
+  console.log(data);
 
   useEffect(() => {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
@@ -20,14 +25,19 @@ const Popup: React.FC<PopupProps> = ({ data }) => {
         setCurrentURL(url);
       }
     });
+    setData(localData);
   }, []);
 
   useEffect(() => {
-    if (!currentURL) {
+    console.log(data);
+  }, [data]);
+
+  useEffect(() => {
+    if (!currentURL || !data || !data[currentURL]) {
       return;
     }
     const tmp = displayNotes(data[currentURL]["notes"]);
-    const ele = document.getElementById("notes");
+    const ele = document.getElementById("page-notes");
     if (ele) {
       ele.innerHTML = tmp;
     }
@@ -43,22 +53,23 @@ const Popup: React.FC<PopupProps> = ({ data }) => {
   });
 
   return (
-    <div style={{ height: "200px", width: "400px" }}>
-      <div style={{ display: "flex", marginLeft: "auto" }}>FabTabs</div>
+    <div style={{ height: "400px", width: "400px" }}>
+      <div style={{ display: "flex", marginBottom: "1.5em" }}>FabTabs</div>
       {data ? (
-        <FolderStructure data={data}></FolderStructure>
+        <FolderStructure setData={setData} data={data} />
       ) : (
-        "NO DATA SAVED YET"
+        "NO URLs SAVED YET"
       )}
+      <Popover />
       <div style={{ marginTop: "16px" }}>
-        {data[currentURL as string] ? (
+        {data && data[currentURL as string] ? (
           <div>
             Notes:
             <br />
-            <div id={"notes"}></div>
+            <div id={"page-notes"} />
           </div>
         ) : (
-          "NO NOTES"
+          "NO NOTES FOR THIS PAGE"
         )}
       </div>
     </div>
@@ -68,10 +79,13 @@ const Popup: React.FC<PopupProps> = ({ data }) => {
 export default Popup;
 
 chrome.storage.local.get(function (data) {
-  console.log(data);
   ReactDOM.render(
     <React.StrictMode>
-      <Popup data={data.data} />
+      {data && Object.keys(data).length !== 0 ? (
+        <Popup localData={data.data} />
+      ) : (
+        <div style={{ height: "200px", width: "400px" }}>NO DATA SAVED YET</div>
+      )}
     </React.StrictMode>,
     document.getElementById("root")
   );

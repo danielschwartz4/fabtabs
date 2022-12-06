@@ -19,6 +19,6 @@ data: {
 
 
 TODO
-- Folder interface in popup
+- Delete notes
 - Notes
 - Style

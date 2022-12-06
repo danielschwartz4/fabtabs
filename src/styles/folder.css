@@ -24,17 +24,23 @@ a {
 
 .popover__wrapper {
   position: relative;
-  margin-top: 1.5rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
   display: inline-block;
 }
+
 .popover__content {
+  position: absolute;
+  background-color: burlywood;
+}
+/* .popover__content {
   opacity: 0;
   visibility: hidden;
   position: absolute;
   background-color: #bfbfbf;
-  padding: 1.5rem;
+  padding: 1rem;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-  width: auto;
+  width: 300px;
 }
 .popover__content:before {
   position: absolute;
@@ -52,9 +58,8 @@ a {
   z-index: 10;
   opacity: 1;
   visibility: visible;
-  /* transform: translate(0, -20px); */
   transition: all 0.5s cubic-bezier(0.75, -0.02, 0.2, 0.97);
 }
 .popover__message {
-  text-align: center;
-}
+  text-align: left;
+} */
