@@ -54,7 +54,9 @@ const Popup: React.FC<PopupProps> = ({ localData }) => {
 
   return (
     <div style={{ height: "400px", width: "400px" }}>
-      <div style={{ display: "flex", marginBottom: "1.5em" }}>FabTabs</div>
+      <div style={{ display: "flex", marginBottom: "1.5em" }}>
+        <b> FabTabs</b>
+      </div>
       {data ? (
         <FolderStructure setData={setData} data={data} />
       ) : (

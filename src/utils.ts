@@ -27,3 +27,30 @@ export const processText = (selectionText: string) => {
   selectionText.trim();
   return selectionText;
 };
+
+async function getCurrentTab() {
+  const queryOptions = { active: true, lastFocusedWindow: true };
+  const [tab] = await chrome.tabs.query(queryOptions);
+  return tab;
+}
+
+async function executeInTab(tabId: any, { file, func, args }: any) {
+  const executions = await chrome.scripting.executeScript({
+    target: { tabId, allFrames: true },
+    ...(file && { files: [file] }),
+    func,
+    args,
+  });
+
+  if (executions.length == 1) {
+    return executions[0].result;
+  }
+
+  // If there are many frames, concatenate the results
+  return executions.flatMap((execution) => execution.result);
+}
+
+export async function executeInCurrentTab(opts: any) {
+  const tab = await getCurrentTab();
+  return executeInTab(tab.id, opts);
+}

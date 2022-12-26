@@ -19,6 +19,8 @@ data: {
 
 
 TODO
-- Delete notes
-- Notes
+- Highlight
+- Organize
 - Style
+- Better delete
+- ChatGPT

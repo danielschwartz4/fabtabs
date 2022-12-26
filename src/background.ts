@@ -1,5 +1,5 @@
 import { DataType } from "./types/types";
-import { processText } from "./utils";
+import { executeInCurrentTab, processText } from "./utils";
 
 const contextMenus = () => {
   chrome.runtime.onInstalled.addListener(async () => {
@@ -41,7 +41,7 @@ const contextMenus = () => {
           obj[pageUrl] = { notes: {}, title: tabs[0].title as string };
         }
         if (selectionText && selectionText.split(" ").length > 30) {
-          const index = selectionText.indexOf(" ") + 240;
+          const index = selectionText.indexOf(" ") + 120;
           selectionText = selectionText.substring(0, index) + "...";
         }
         obj[pageUrl]["notes"][selectionText as string] = {
@@ -56,8 +56,36 @@ const contextMenus = () => {
   });
 };
 
+function initializeKeyboardShortcutEventListeners() {
+  // Add Keyboard shortcuts
+  chrome.commands.onCommand.addListener((command) => {
+    switch (command) {
+      case "execute-highlight":
+        console.log("in");
+        chrome.tabs.query(
+          { active: true, currentWindow: true },
+          function (tabs) {
+            if (!tabs[0].id) {
+              return;
+            }
+            setTimeout(() => {}, 1000);
+            chrome.tabs.sendMessage(
+              tabs[0].id,
+              { command: "append" },
+              function (response) {
+                console.log("response", response);
+              }
+            );
+          }
+        );
+        break;
+    }
+  });
+}
+
 function polling() {
   console.log("polling");
+  initializeKeyboardShortcutEventListeners();
   contextMenus();
   setTimeout(polling, 1000 * 20);
 }

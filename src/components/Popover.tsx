@@ -13,9 +13,6 @@ const Popover: React.FC<PopoverProps> = ({}) => {
 
   return (
     <div onMouseLeave={handleMouseLeave} className="popover__content">
-      <hr style={{ color: "black" }} />
-      {/* <button style={{ marginTop: "1em", marginBottom: "1em" }}>Delete</button> */}
-
       <div id={"popover"}>{/* <BsTrash></BsTrash> */}</div>
     </div>
   );

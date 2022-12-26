@@ -24,7 +24,15 @@
   "background": {
     "service_worker": "js/background.js"
   },
-
+  "commands": {
+    "execute-highlight": {
+      "suggested_key": {
+        "default": "Alt+H",
+        "mac": "Ctrl+H"
+      },
+      "description": "Highlight selected text"
+    }
+  },
   "permissions": ["storage", "contextMenus"],
 
   "host_permissions": ["<all_urls>"]

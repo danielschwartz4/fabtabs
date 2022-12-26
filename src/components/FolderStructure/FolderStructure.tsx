@@ -1,8 +1,7 @@
 import React from "react";
+import "../../styles/folder.css";
 import { DataType } from "../../types/types";
 import Folder from "./Folder";
-import "../../styles/folder.css";
-import { removeUrl } from "../../utils";
 
 interface FolderStructureProps {
   data: DataType;
@@ -20,6 +19,7 @@ const FolderStructure: React.FC<FolderStructureProps> = ({ data, setData }) => {
 
   return (
     <div>
+      Folders:
       <div
         style={{
           display: "grid",

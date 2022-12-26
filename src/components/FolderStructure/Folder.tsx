@@ -1,8 +1,7 @@
 import React from "react";
-import { NotesType } from "../../types/types";
-import { displayNotes, removeUrl } from "../../utils";
 import "../../styles/folder.css";
-import { BsTrash } from "react-icons/bs";
+import { NotesType } from "../../types/types";
+import { displayNotes } from "../../utils";
 
 interface FolderProps {
   url: string;
