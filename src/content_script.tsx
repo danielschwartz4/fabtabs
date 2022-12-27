@@ -1,13 +1,4 @@
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-  // document.body.style.background = "yellow";
-
-  // var selection = window.getSelection()?.toString();
-  // if (selection && selection.length > 0) {
-  //   document.body.innerHTML = document.body.innerHTML.replace(
-  //     selection,
-  //     "<mark>" + selection + "</mark>"
-  //   );
-  // }
   create();
 
   sendResponse({ result: "success" });
@@ -18,6 +9,7 @@ async function create(selection = window.getSelection()) {
   if (!selectionString) return;
 
   let container = selection?.getRangeAt(0).commonAncestorContainer;
+
   while (container && container?.childNodes.length === 0) {
     container = container.parentNode as Node;
   }
@@ -76,7 +68,7 @@ function _recursiveWrapper(
   highlightInfo: any,
   startFound: boolean,
   charsHighlighted: number
-): [boolean, number] {
+): [boolean, number] | undefined {
   const {
     anchor,
     focus,
@@ -89,11 +81,17 @@ function _recursiveWrapper(
   } = highlightInfo;
   const selectionLength = selectionString.length;
 
-  container.childNodes?.forEach((node: ChildNode) => {
-    if (charsHighlighted >= selectionLength) return; // Stop early if we are done highlighting
+  container.childNodes?.forEach((node: Node) => {
+    // for (let node of container.childNodes) {
+    console.log("---------------------------------------");
 
-    // !! Replacing this for now with textContent
+    if (charsHighlighted >= selectionLength) return; // Stop early if we are done highlighting
+    // !! Just doesn't work between entities
+
     // if (node.nodeType !== Node.TEXT_NODE) {
+    // console.log("HERE");
+    // console.log("node.nodeType", node.nodeType);
+    // console.log("NODE", node);
     //   // Only look at visible nodes because invisible nodes aren't included in the selected text
     //   // from the Window.getSelection() API
     //   const jqElement = $(node);
@@ -132,9 +130,8 @@ function _recursiveWrapper(
     // const { nodeValue, parentElement: parent } = node;
     // const nodeValue = node.nodeValue;
     const nodeValue = node.textContent;
+    console.log("NODE VALUE", nodeValue);
     const parent = node.parentElement;
-
-    console.log("nodeValue", nodeValue);
 
     if (nodeValue && startIndex > nodeValue.length) {
       // Start index is beyond the length of the text node, can't find the highlight
@@ -145,11 +142,16 @@ function _recursiveWrapper(
     }
 
     // Split the text content into three parts, the part before the highlight, the highlight and the part after the highlight:
+
+    console.log("NODE", node);
+    console.log("startIndex", startIndex);
+    // !! This is the problem it's fucking everything up
     const highlightTextEl = (node as Text).splitText(startIndex);
-    console.log("highlightTextEl", highlightTextEl);
+    // console.log("highlightTextEl", highlightTextEl);
 
     // Instead of simply blindly highlighting the text by counting characters,
     // we check if the text is the same as the selection string.
+    console.log("nodeValue", nodeValue);
     let i = startIndex;
     if (nodeValue) {
       for (; i < nodeValue?.length; i++) {
@@ -161,24 +163,27 @@ function _recursiveWrapper(
         )
           charsHighlighted++;
         if (charsHighlighted >= selectionLength) break;
+
         const char = nodeValue[i];
+        console.log(char, selectionString[charsHighlighted]);
         if (char === selectionString[charsHighlighted]) {
           charsHighlighted++;
         } else if (!char.match(/\s/u)) {
           // FIXME: Here, this is where the issue happens
           // Similarly, if the char in the text node is a whitespace, ignore any differences
           // Otherwise, we can't find the highlight text; throw an error
+          console.log("IN ERROR");
           throw new Error(
             `No match found for highlight string '${selectionString}'`
           );
         }
       }
     }
-
     console.log("charsHighlighted", charsHighlighted);
-    // // If textElement is wrapped in a .highlighter--highlighted span, do not add this highlight
-    // // as it is already highlighted, but still count the number of charsHighlighted
-    // if (parent.classList.contains(HIGHLIGHT_CLASS)) return;
+
+    // If textElement is wrapped in a .highlighter--highlighted span, do not add this highlight
+    // as it is already highlighted, but still count the number of charsHighlighted
+    if (parent?.classList.contains("highlighter--highlighted")) return;
 
     const elementCharCount = i - startIndex; // Number of chars to highlight in this particular element
     const insertBeforeElement = highlightTextEl.splitText(elementCharCount);
@@ -186,22 +191,21 @@ function _recursiveWrapper(
 
     // If the text is all whitespace, ignore it
     if (highlightText && highlightText.match(/^\s*$/u)) {
-      // parent.normalize(); // Undo any 'splitText' operations
+      parent?.normalize(); // Undo any 'splitText' operations
       return;
     }
 
     // If we get here, highlight!
     // Wrap the highlighted text in a span with the highlight class name
     const highlightNode = document.createElement("span");
-    // highlightNode.classList.add(
-    //   color === "inherit" ? "highlighter--deleted" : "highlighter--highlighted"
-    // );
+    highlightNode.classList.add(
+      color === "inherit" ? "highlighter--deleted" : "highlighter--highlighted"
+    );
     highlightNode.style.backgroundColor = "yellow";
     highlightNode.style.color = textColor;
     // highlightNode.dataset.highlightId = highlightIndex;
 
     highlightNode.textContent = highlightTextEl.nodeValue;
-    console.log("highlightNode", highlightNode);
     highlightTextEl.remove();
     parent?.insertBefore(highlightNode, insertBeforeElement);
   });
