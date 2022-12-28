@@ -68,7 +68,7 @@ function _recursiveWrapper(
   highlightInfo: any,
   startFound: boolean,
   charsHighlighted: number
-): [boolean, number] | undefined {
+): any {
   const {
     anchor,
     focus,
@@ -81,33 +81,42 @@ function _recursiveWrapper(
   } = highlightInfo;
   const selectionLength = selectionString.length;
 
-  container.childNodes?.forEach((node: Node) => {
-    // for (let node of container.childNodes) {
+  container.childNodes?.forEach((node: Node, idx: number) => {
     console.log("---------------------------------------");
+    // !! DOESN"T HIGHLIGHT DIFFERENT NODES
 
     if (charsHighlighted >= selectionLength) return; // Stop early if we are done highlighting
-    // !! Just doesn't work between entities
 
     // if (node.nodeType !== Node.TEXT_NODE) {
     // console.log("HERE");
-    // console.log("node.nodeType", node.nodeType);
-    // console.log("NODE", node);
     //   // Only look at visible nodes because invisible nodes aren't included in the selected text
     //   // from the Window.getSelection() API
     //   const jqElement = $(node);
-    //   if (
-    //     jqElement.is(":visible") &&
-    //     getComputedStyle(node as Element).visibility !== "hidden"
-    //   ) {
-    //     [startFound, charsHighlighted] = _recursiveWrapper(
-    //       jqElement,
-    //       highlightInfo,
-    //       startFound,
-    //       charsHighlighted
-    //     );
+    // if (
+    //   jqElement.is(":visible") &&
+    //   getComputedStyle(node as Element).visibility !== "hidden"
+    // ) {
+    // [startFound, charsHighlighted] = _recursiveWrapper(
+    //   jqElement,
+    //   highlightInfo,
+    //   startFound,
+    //   charsHighlighted
+    // );
     //   }
     //   return;
     // }
+    if (node.nodeType !== Node.TEXT_NODE) {
+      console.log("ININININ");
+      if (getComputedStyle(node as Element).visibility) {
+        [startFound, charsHighlighted] = _recursiveWrapper(
+          node,
+          highlightInfo,
+          startFound,
+          charsHighlighted
+        );
+      }
+      return;
+    }
 
     // Step 1:
     // The first element to appear could be the anchor OR the focus node,
@@ -125,12 +134,13 @@ function _recursiveWrapper(
         ]
       );
     }
+    console.log(node);
+
     // Step 2:
     // If we get here, we are in a text node, the start was found and we are not done highlighting
     // const { nodeValue, parentElement: parent } = node;
-    // const nodeValue = node.nodeValue;
-    const nodeValue = node.textContent;
-    console.log("NODE VALUE", nodeValue);
+    const nodeValue = node.nodeValue;
+    // const nodeValue = node.textContent;
     const parent = node.parentElement;
 
     if (nodeValue && startIndex > nodeValue.length) {
@@ -140,19 +150,15 @@ function _recursiveWrapper(
         `No match found for highlight string '${selectionString}'`
       );
     }
-
     // Split the text content into three parts, the part before the highlight, the highlight and the part after the highlight:
 
-    console.log("NODE", node);
-    console.log("startIndex", startIndex);
     // !! This is the problem it's fucking everything up
     const highlightTextEl = (node as Text).splitText(startIndex);
-    // console.log("highlightTextEl", highlightTextEl);
 
     // Instead of simply blindly highlighting the text by counting characters,
     // we check if the text is the same as the selection string.
-    console.log("nodeValue", nodeValue);
     let i = startIndex;
+    console.log("NODE VALUE", nodeValue);
     if (nodeValue) {
       for (; i < nodeValue?.length; i++) {
         // Skip any whitespace characters in the selection string as there can
@@ -169,9 +175,6 @@ function _recursiveWrapper(
         if (char === selectionString[charsHighlighted]) {
           charsHighlighted++;
         } else if (!char.match(/\s/u)) {
-          // FIXME: Here, this is where the issue happens
-          // Similarly, if the char in the text node is a whitespace, ignore any differences
-          // Otherwise, we can't find the highlight text; throw an error
           console.log("IN ERROR");
           throw new Error(
             `No match found for highlight string '${selectionString}'`
@@ -187,9 +190,10 @@ function _recursiveWrapper(
 
     const elementCharCount = i - startIndex; // Number of chars to highlight in this particular element
     const insertBeforeElement = highlightTextEl.splitText(elementCharCount);
+    // const insertBeforeElement = Object.values(container.childNodes)[idx+1];
     const highlightText = highlightTextEl.nodeValue;
+    // const highlightText = Object.values(container.childNodes)[idx + 1].nodeValue
 
-    // If the text is all whitespace, ignore it
     if (highlightText && highlightText.match(/^\s*$/u)) {
       parent?.normalize(); // Undo any 'splitText' operations
       return;
