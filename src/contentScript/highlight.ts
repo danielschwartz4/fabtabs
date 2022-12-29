@@ -2,13 +2,14 @@ import { recursiveWrapper } from "./highlightWrapper";
 
 export function highlight(
   selString: any,
-  container: Node,
-  selection: Selection
+  container: Element,
+  selection: Selection,
+  highlightIndex: number
 ) {
   const highlightInfo = {
     color: "yellow",
     textColor: "inherit",
-    // highlightIndex: highlightIndex,
+    highlightIndex: highlightIndex,
     selectionString: selString,
     anchor: selection.anchorNode as Node,
     anchorOffset: selection.anchorOffset,

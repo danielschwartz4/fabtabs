@@ -1,4 +1,4 @@
-import { DataType, NotesType } from "./types/types";
+import { DataType, NotesType } from "../types/types";
 
 export const displayNotes = (notes: { [note: string]: { posUrl: string } }) => {
   let tmp = "";

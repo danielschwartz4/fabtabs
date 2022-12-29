@@ -1,3 +1,4 @@
+import { store } from "../utils/storage";
 import { highlight } from "./highlight";
 
 export async function createHighlight(selection = window.getSelection()) {
@@ -9,6 +10,17 @@ export async function createHighlight(selection = window.getSelection()) {
   while (container && container?.childNodes.length === 0) {
     container = container.parentNode as Node;
   }
-
-  highlight(selectionString, container as Node, selection as Selection);
+  const highlightIndex = await store(
+    selection as Selection,
+    container as Element,
+    location.hostname + location.pathname,
+    location.href
+  );
+  console.log("highlightIndex", highlightIndex);
+  highlight(
+    selectionString,
+    container as Element,
+    selection as Selection,
+    highlightIndex
+  );
 }

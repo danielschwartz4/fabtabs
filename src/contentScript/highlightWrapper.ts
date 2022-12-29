@@ -1,9 +1,9 @@
-export function recursiveWrapper(container: Node, highlightInfo: any) {
+export function recursiveWrapper(container: Element, highlightInfo: any) {
   return _recursiveWrapper(container, highlightInfo, false, 0); // Initialize the values of 'startFound' and 'charsHighlighted'
 }
 
 function _recursiveWrapper(
-  container: Node,
+  container: Element,
   highlightInfo: any,
   startFound: boolean,
   charsHighlighted: number
@@ -15,7 +15,7 @@ function _recursiveWrapper(
     focusOffset,
     color,
     textColor,
-    // highlightIndex,
+    highlightIndex,
     selectionString,
   } = highlightInfo;
   const selectionLength = selectionString.length;
@@ -26,29 +26,10 @@ function _recursiveWrapper(
 
     if (charsHighlighted >= selectionLength) return; // Stop early if we are done highlighting
 
-    // if (node.nodeType !== Node.TEXT_NODE) {
-    // console.log("HERE");
-    //   // Only look at visible nodes because invisible nodes aren't included in the selected text
-    //   // from the Window.getSelection() API
-    //   const jqElement = $(node);
-    // if (
-    //   jqElement.is(":visible") &&
-    //   getComputedStyle(node as Element).visibility !== "hidden"
-    // ) {
-    // [startFound, charsHighlighted] = _recursiveWrapper(
-    //   jqElement,
-    //   highlightInfo,
-    //   startFound,
-    //   charsHighlighted
-    // );
-    //   }
-    //   return;
-    // }
     if (node.nodeType !== Node.TEXT_NODE) {
-      console.log("ININININ");
       if (getComputedStyle(node as Element).visibility) {
         [startFound, charsHighlighted] = _recursiveWrapper(
-          node,
+          node as Element,
           highlightInfo,
           startFound,
           charsHighlighted
@@ -146,8 +127,7 @@ function _recursiveWrapper(
     );
     highlightNode.style.backgroundColor = "yellow";
     highlightNode.style.color = textColor;
-    // highlightNode.dataset.highlightId = highlightIndex;
-
+    highlightNode.dataset.highlightId = highlightIndex;
     highlightNode.textContent = highlightTextEl.nodeValue;
     highlightTextEl.remove();
     parent?.insertBefore(highlightNode, insertBeforeElement);

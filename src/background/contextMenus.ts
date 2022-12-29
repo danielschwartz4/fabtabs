@@ -1,5 +1,5 @@
 import { DataType } from "../types/types";
-import { processText } from "../utils";
+import { processText } from "../utils/utils";
 
 export const contextMenus = () => {
   chrome.runtime.onInstalled.addListener(async () => {

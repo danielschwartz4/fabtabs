@@ -2,7 +2,7 @@ import { Box, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
 import "../../styles/folder.css";
 import { NotesType } from "../../types/types";
-import { displayNotes } from "../../utils";
+import { displayNotes } from "../../utils/utils";
 
 interface FolderProps {
   url: string;

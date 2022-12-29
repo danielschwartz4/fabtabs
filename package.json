@@ -18,6 +18,10 @@
   },
   "dependencies": {
     "@chakra-ui/react": "^2.4.2",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "crypto-randomuuid": "^1.0.0",
+    "framer-motion": "^8.0.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-icons": "^4.7.1"

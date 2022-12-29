@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import FolderStructure from "./components/FolderStructure/FolderStructure";
 import { DataType } from "./types/types";
-import { displayNotes } from "./utils";
+import { displayNotes } from "./utils/utils";
 import "./styles/folder.css";
 import Popover from "./components/Popover";
 import { Box } from "@chakra-ui/react";
@@ -90,6 +90,7 @@ const Popup: React.FC<PopupProps> = ({ localData }) => {
 export default Popup;
 
 chrome.storage.local.get(function (data) {
+  console.log(data);
   ReactDOM.render(
     <React.StrictMode>
       {data && Object.keys(data).length !== 0 ? (
