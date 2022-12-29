@@ -24,3 +24,4 @@ TODO
 - Style
 - Better delete
 - ChatGPT
+- Don't open new tab on click

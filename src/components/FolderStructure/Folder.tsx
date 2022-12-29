@@ -1,4 +1,5 @@
-import React from "react";
+import { Box, Text } from "@chakra-ui/react";
+import React, { useState } from "react";
 import "../../styles/folder.css";
 import { NotesType } from "../../types/types";
 import { displayNotes } from "../../utils";
@@ -13,37 +14,50 @@ interface FolderProps {
 }
 
 const Folder: React.FC<FolderProps> = ({ url, data, handleFolderDelete }) => {
+  const [shadow, setShadow] = useState<boolean>(false);
   const handleMouseOver = () => {
+    setShadow(true);
     let tmp = `<button id="myButton">delete</button> </br> </br>`;
+    // let tmp = "";
     tmp += displayNotes(data.notes);
     const ele = document.getElementById("popover");
     if (ele) {
       ele.innerHTML = tmp;
+      ele.style.padding = "8px";
       document
         .getElementById("myButton")
         ?.addEventListener("click", () => handleFolderDelete(url));
     }
   };
+  const handleMouseLeave = () => {
+    setShadow(false);
+  };
 
   return (
-    <div className="popover__wrapper">
+    <Box className="popover__wrapper">
       <a href={url} target="_blank">
-        <div
+        <Box
+          style={
+            shadow
+              ? {
+                  boxShadow:
+                    "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
+                }
+              : {}
+          }
           onMouseOver={handleMouseOver}
-          style={{
-            border: "1px solid",
-            borderColor: "black",
-            padding: "2px",
-            fontSize: "12px",
-            height: "36px",
-            width: "72px",
-            overflow: "clip",
-          }}
+          onMouseLeave={handleMouseLeave}
+          fontSize={"12px"}
+          whiteSpace={"nowrap"}
+          textOverflow={"ellipsis"}
+          h={"24px"}
         >
-          {data.title}
-        </div>
+          <Text padding={2} my={"auto"}>
+            {data.title}
+          </Text>
+        </Box>
       </a>
-    </div>
+    </Box>
   );
 };
 

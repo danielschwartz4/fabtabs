@@ -31,7 +31,12 @@ a {
 
 .popover__content {
   position: absolute;
-  background-color: burlywood;
+  background-color: white;
+  height: 200px;
+  overflow: scroll;
+  margin-right: 14px;
+  margin-top: 14px;
+  border-radius: 8px;
 }
 /* .popover__content {
   opacity: 0;

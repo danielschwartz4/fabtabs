@@ -5,6 +5,7 @@ import { DataType } from "./types/types";
 import { displayNotes } from "./utils";
 import "./styles/folder.css";
 import Popover from "./components/Popover";
+import { Box } from "@chakra-ui/react";
 
 interface PopupProps {
   localData: DataType;
@@ -53,28 +54,36 @@ const Popup: React.FC<PopupProps> = ({ localData }) => {
   });
 
   return (
-    <div style={{ height: "400px", width: "400px" }}>
-      <div style={{ display: "flex", marginBottom: "1.5em" }}>
-        <b> FabTabs</b>
-      </div>
+    <Box
+      h={"400px"}
+      w={"400px"}
+      padding={".5em"}
+      outline={"2px"}
+      outlineColor={"black"}
+    >
+      <hr style={{ marginBottom: "1.5em", marginTop: "1.5em" }} />
       {data ? (
-        <FolderStructure setData={setData} data={data} />
+        <Box border={"2px"} borderColor={"black"}>
+          <FolderStructure setData={setData} data={data} />
+        </Box>
       ) : (
         "NO URLs SAVED YET"
       )}
       <Popover />
-      <div style={{ marginTop: "16px" }}>
+      <hr style={{ marginBottom: "1.5em", marginTop: "1.5em" }} />
+      <Box mt={"16px"}>
         {data && data[currentURL as string] ? (
-          <div>
-            Notes:
+          <Box>
+            <b>Notes:</b>
             <br />
-            <div id={"page-notes"} />
-          </div>
+            <br />
+            <Box maxH={"200px"} overflow={"scroll"} id={"page-notes"} />
+          </Box>
         ) : (
           "NO NOTES FOR THIS PAGE"
         )}
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };
 
@@ -86,7 +95,9 @@ chrome.storage.local.get(function (data) {
       {data && Object.keys(data).length !== 0 ? (
         <Popup localData={data.data} />
       ) : (
-        <div style={{ height: "200px", width: "400px" }}>NO DATA SAVED YET</div>
+        <Box h={"200px"} w={"400px"}>
+          NO DATA SAVED YET
+        </Box>
       )}
     </React.StrictMode>,
     document.getElementById("root")
