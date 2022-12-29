@@ -1,9 +1,9 @@
 import { recursiveWrapper } from "./highlightWrapper";
 
 export function highlight(
-  selString: any,
+  selString: string,
   container: Element,
-  selection: Selection,
+  selection: Selection | any,
   highlightIndex: number
 ) {
   const highlightInfo = {

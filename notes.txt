@@ -25,3 +25,4 @@ TODO
 - Better delete
 - ChatGPT
 - Don't open new tab on click
+- # highlights on a page number circle

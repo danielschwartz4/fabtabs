@@ -89,12 +89,12 @@ const Popup: React.FC<PopupProps> = ({ localData }) => {
 
 export default Popup;
 
-chrome.storage.local.get(function (data) {
-  console.log(data);
+chrome.storage.local.get(function (tabs) {
+  console.log("tabs", tabs);
   ReactDOM.render(
     <React.StrictMode>
-      {data && Object.keys(data).length !== 0 ? (
-        <Popup localData={data.data} />
+      {tabs && Object.keys(tabs).length !== 0 ? (
+        <Popup localData={tabs} />
       ) : (
         <Box h={"200px"} w={"400px"}>
           NO DATA SAVED YET

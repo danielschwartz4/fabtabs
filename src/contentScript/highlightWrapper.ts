@@ -21,7 +21,6 @@ function _recursiveWrapper(
   const selectionLength = selectionString.length;
 
   container.childNodes?.forEach((node: Node, idx: number) => {
-    console.log("---------------------------------------");
     // !! DOESN"T HIGHLIGHT DIFFERENT NODES
 
     if (charsHighlighted >= selectionLength) return; // Stop early if we are done highlighting
@@ -54,7 +53,6 @@ function _recursiveWrapper(
         ]
       );
     }
-    console.log(node);
 
     // Step 2:
     // If we get here, we are in a text node, the start was found and we are not done highlighting
@@ -78,7 +76,6 @@ function _recursiveWrapper(
     // Instead of simply blindly highlighting the text by counting characters,
     // we check if the text is the same as the selection string.
     let i = startIndex;
-    console.log("NODE VALUE", nodeValue);
     if (nodeValue) {
       for (; i < nodeValue?.length; i++) {
         // Skip any whitespace characters in the selection string as there can
@@ -91,7 +88,6 @@ function _recursiveWrapper(
         if (charsHighlighted >= selectionLength) break;
 
         const char = nodeValue[i];
-        console.log(char, selectionString[charsHighlighted]);
         if (char === selectionString[charsHighlighted]) {
           charsHighlighted++;
         } else if (!char.match(/\s/u)) {

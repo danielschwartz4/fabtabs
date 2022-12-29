@@ -34,7 +34,7 @@ async function getCurrentTab() {
   return tab;
 }
 
-async function executeInTab(tabId: any, { file, func, args }: any) {
+export async function executeInTab(tabId: any, { file, func, args }: any) {
   const executions = await chrome.scripting.executeScript({
     target: { tabId, allFrames: true },
     ...(file && { files: [file] }),
