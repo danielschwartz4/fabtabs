@@ -36,12 +36,7 @@ const Popup: React.FC<PopupProps> = ({ localData }) => {
       return;
     }
     console.log("data[currentUrl]", data[currentUrl]);
-    // const tmp = displayNotes(data[currentUrl]["highlights"]);
-    // const ele = document.getElementById("page-notes");
     displayMainHighlights(data[currentUrl]["highlights"]);
-    // if (ele) {
-    // ele.innerHTML = tmp;
-    // }
   }, [currentUrl, data]);
 
   chrome.storage.onChanged.addListener((changes, namespace) => {

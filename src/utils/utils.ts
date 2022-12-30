@@ -6,13 +6,10 @@ export const displayMainHighlights = (highlights: Highlight[]) => {
   (highlightList as HTMLElement).innerHTML = "";
 
   for (var h of highlights) {
-    // !! Get rid of href and make it so click goes to highlight
     const newEl = document.createElement("div");
     newEl.classList.add("highlight");
     newEl.innerText = " - " + h.string;
     newEl.addEventListener("click", () => {
-      console.log("clicked");
-      console.log(h.uuid);
       chrome.runtime.sendMessage({
         action: "show-highlight",
         arguments: h.uuid,
@@ -29,14 +26,12 @@ export const displayPopoverHighlights = (highlights: Highlight[]) => {
   (highlightList as HTMLElement).innerHTML = "";
 
   for (var h of highlights) {
-    // !! Get rid of href and make it so click goes to highlight
     const newEl = document.createElement("div");
     newEl.classList.add("highlight");
     newEl.innerText = " - " + h.string;
     newEl.addEventListener("click", () => {
       chrome.runtime.sendMessage({
         action: "show-highlight",
-        arguments: h.uuid,
       });
     });
     highlightList?.appendChild(newEl);

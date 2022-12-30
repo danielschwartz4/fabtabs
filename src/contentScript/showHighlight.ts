@@ -6,15 +6,4 @@ export function showHighlight(highlightId: string) {
   );
 
   highlightEl?.scrollIntoView();
-
-  // if (highlightEl) {
-  //   highlightEl.scrollIntoViewIfNeeded(true);
-  //   const boundingRect = highlightEl.getBoundingClientRect();
-  //   // TODO: Move some of this logic to hoverTools:
-  //   onHighlightMouseEnterOrClick({
-  //     type: "click",
-  //     target: highlightEl,
-  //     clientX: boundingRect.left + boundingRect.width / 2,
-  //   });
-  // }
 }

@@ -38,7 +38,7 @@ const FolderStructure: React.FC<FolderStructureProps> = ({ data, setData }) => {
             <Folder
               key={i}
               handleFolderDelete={handleFolderDelete}
-              url={key}
+              url={data[key].highlights[0].href}
               data={data[key]}
             />
           );
