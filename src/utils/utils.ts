@@ -1,23 +1,32 @@
 import { DataType, Highlight, NotesType } from "../types/types";
 
 export const displayMainHighlights = (highlights: Highlight[]) => {
-  // reset highlight list
   const highlightList = document.getElementById("highlight-list");
   (highlightList as HTMLElement).innerHTML = "";
-
   for (var h of highlights) {
     const newEl = document.createElement("div");
     newEl.classList.add("highlight");
     newEl.innerText = " - " + h.string;
-    newEl.addEventListener("click", () => {
+    newEl.style.cursor = "pointer";
+
+    // Create a new function that takes the uuid as an argument
+    const showHighlight = (uuid: string) => {
       chrome.runtime.sendMessage({
         action: "show-highlight",
-        arguments: h.uuid,
+        arguments: uuid,
       });
-    });
+    };
+
+    // Use a closure to create a new function for each highlight element
+    newEl.addEventListener(
+      "click",
+      (() => {
+        const uuid = h.uuid;
+        return () => showHighlight(uuid);
+      })()
+    );
     highlightList?.appendChild(newEl);
   }
-  return highlightList;
 };
 
 export const displayPopoverHighlights = (highlights: Highlight[]) => {
@@ -27,6 +36,7 @@ export const displayPopoverHighlights = (highlights: Highlight[]) => {
 
   for (var h of highlights) {
     const newEl = document.createElement("div");
+    newEl.style.margin = "8px";
     newEl.classList.add("highlight");
     newEl.innerText = " - " + h.string;
     newEl.addEventListener("click", () => {

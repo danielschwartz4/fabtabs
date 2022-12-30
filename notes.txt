@@ -19,16 +19,16 @@ data: {
 
 
 TODO
-- make url link work
-- Don't open new tab on click
 - popup for deletion
 - Organize
+- search bar
 - Style
-- Better delete
+- Better highlights
+- delete tabs
+- allow user to write notes
+- Highlight everything
 - # highlights on a page number circle
 - space bar for highlights
-- notes in popup
-- Highlight everything
 - ChatGPT
 
 Delete storage: chrome.storage.local.clear()
