@@ -69,13 +69,13 @@ const Popup: React.FC<PopupProps> = ({ localData }) => {
       <Box mt={"16px"}>
         {currentUrl && data && data[currentUrl] ? (
           <Box>
-            <b>Notes:</b>
+            <b>{data[currentUrl].title}</b> Highlights
             <br />
             <br />
             <Box maxH={"200px"} overflow={"scroll"} id={"highlight-list"} />
           </Box>
         ) : (
-          "NO NOTES FOR THIS PAGE"
+          "You haven't made any highlights on this page :'("
         )}
       </Box>
     </Box>
@@ -91,7 +91,7 @@ chrome.storage.local.get(function (data) {
         <Popup localData={data.tabs} />
       ) : (
         <Box h={"200px"} w={"400px"}>
-          NO DATA SAVED YET
+          Nothing Highlighted Yet :(
         </Box>
       )}
     </React.StrictMode>,

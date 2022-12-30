@@ -99,7 +99,6 @@ function _recursiveWrapper(
         }
       }
     }
-    console.log("charsHighlighted", charsHighlighted);
 
     // If textElement is wrapped in a .highlighter--highlighted span, do not add this highlight
     // as it is already highlighted, but still count the number of charsHighlighted

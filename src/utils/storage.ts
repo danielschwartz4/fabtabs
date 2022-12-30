@@ -14,13 +14,8 @@ export async function store(
   textColor = "inherit"
 ): Promise<[number, string]> {
   const { tabs } = await chrome.storage.local.get({ tabs: {} });
-  console.log("tabs", tabs);
-
-  // if (!tabs[url]) tabs[url] = [];
-  console.log("before");
 
   if (!tabs[url]) {
-    console.log("here");
     tabs[url] = { highlights: [], title: title };
   }
 
@@ -50,8 +45,6 @@ export async function store(
 export async function loadAll(url: string, alternativeUrl?: string) {
   const result = await chrome.storage.local.get({ tabs: {} });
   let highlights: Highlight[] = [];
-  // console.log(alternativeUrl);
-  // console.log("result.tabs", result.tabs[alternativeUrl]["highlights"]);
 
   // Because of a bug in an older version of the code, some tabs were stored
   // using a key that didn't correspond to the full page URL. To fix this, if the

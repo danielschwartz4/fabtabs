@@ -21,7 +21,6 @@ export async function createHighlight(
     location.href,
     title
   );
-  console.log("highlightIndex", highlightIndex);
   highlight(
     selectionString,
     container as Element,
