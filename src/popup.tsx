@@ -5,7 +5,10 @@ import { DataType } from "./types/types";
 import { displayMainHighlights } from "./utils/utils";
 import "./styles/folder.css";
 import Popover from "./components/Popover";
-import { Box } from "@chakra-ui/react";
+import { Box, Input } from "@chakra-ui/react";
+import SearchBar from "./components/Search/SearchBar";
+import Results from "./components/Search/Results";
+import Search from "./components/Search/Search";
 
 interface PopupProps {
   localData: DataType;
@@ -18,7 +21,6 @@ const Popup: React.FC<PopupProps> = ({ localData }) => {
   useEffect(() => {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
       let url = tabs[0].url;
-      console.log("first url", url);
       // Incase it's a "link to highlight" url
       if (url?.includes("#")) {
         url = url.substring(0, url.indexOf("#"));
@@ -30,12 +32,9 @@ const Popup: React.FC<PopupProps> = ({ localData }) => {
   }, []);
 
   useEffect(() => {
-    console.log("FIRST");
-    console.log(currentUrl, data);
     if (!currentUrl || !data || !data[currentUrl]) {
       return;
     }
-    console.log("data[currentUrl]", data[currentUrl]);
     displayMainHighlights(data[currentUrl]["highlights"]);
   }, [currentUrl, data]);
 
@@ -56,6 +55,7 @@ const Popup: React.FC<PopupProps> = ({ localData }) => {
       outline={"2px"}
       outlineColor={"black"}
     >
+      <Search data={data}></Search>
       <hr style={{ marginBottom: "1.5em", marginTop: "1.5em" }} />
       {data ? (
         <Box border={"2px"} borderColor={"black"}>
