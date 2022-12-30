@@ -1,25 +1,40 @@
 import { DataType, Highlight, NotesType } from "../types/types";
 
-// export const displayNotes = (notes: { [note: string]: { posUrl: string } }) => {
-//   let tmp = "";
-
-//   for (var key in notes) {
-//     if (notes.hasOwnProperty(key)) {
-//       // Key should eventually point to comment
-//       tmp += `<div>- <a href="${notes[key]["posUrl"]}" target="_blank">${key}</a> </br> </br></div>`;
-//     }
-//   }
-//   return tmp;
-// };
-
-export const displayNotes = (highlights: Highlight[]) => {
-  let tmp = "";
+export const displayMainHighlights = (highlights: Highlight[]) => {
+  // reset highlight list
+  const highlightList = document.getElementById("highlight-list");
+  (highlightList as HTMLElement).innerHTML = "";
 
   for (var h of highlights) {
     // !! Get rid of href and make it so click goes to highlight
-    tmp += `<div>- <a href="${h.href}" target="_blank">${h.string}</a> </br> </br></div>`;
+    const newEl = document.createElement("div");
+    newEl.classList.add("highlight");
+    newEl.innerText = " - " + h.string;
+    newEl.addEventListener("click", () => {
+      console.log("clicked");
+      chrome.runtime.sendMessage({ action: "show-highlight" });
+    });
+    highlightList?.appendChild(newEl);
   }
-  return tmp;
+  return highlightList;
+};
+
+export const displayPopoverHighlights = (highlights: Highlight[]) => {
+  // reset highlight list
+  const highlightList = document.getElementById("popover");
+  (highlightList as HTMLElement).innerHTML = "";
+
+  for (var h of highlights) {
+    // !! Get rid of href and make it so click goes to highlight
+    const newEl = document.createElement("div");
+    newEl.classList.add("highlight");
+    newEl.innerText = " - " + h.string;
+    newEl.addEventListener("click", () => {
+      chrome.runtime.sendMessage({ action: "show-highlight" });
+    });
+    highlightList?.appendChild(newEl);
+  }
+  return highlightList;
 };
 
 export const removeUrl = (data: DataType, url: string) => {
@@ -55,9 +70,25 @@ export async function executeInTab(tabId: any, { file, func, args }: any) {
   if (executions.length == 1) {
     return executions[0].result;
   }
-
   // If there are many frames, concatenate the results
   return executions.flatMap((execution) => execution.result);
+}
+
+async function sendMessageInTab(
+  tabId: number,
+  message: any,
+  callback?: ((response: any) => void) | undefined
+) {
+  chrome.tabs.sendMessage(tabId, message, callback);
+}
+
+export async function sendMessageInCurrentTab(
+  message: any,
+  callback?: ((response: any) => void) | undefined
+) {
+  const tab = await getCurrentTab();
+  if (!tab.id) return;
+  return sendMessageInTab(tab.id, message, callback);
 }
 
 export async function executeInCurrentTab(opts: any) {

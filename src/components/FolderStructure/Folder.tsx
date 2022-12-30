@@ -1,8 +1,8 @@
 import { Box, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
 import "../../styles/folder.css";
-import { Highlight, NotesType } from "../../types/types";
-import { displayNotes } from "../../utils/utils";
+import { Highlight } from "../../types/types";
+import { displayPopoverHighlights } from "../../utils/utils";
 
 interface FolderProps {
   url: string;
@@ -17,17 +17,18 @@ const Folder: React.FC<FolderProps> = ({ url, data, handleFolderDelete }) => {
   const [shadow, setShadow] = useState<boolean>(false);
   const handleMouseOver = () => {
     setShadow(true);
-    let tmp = `<button id="myButton">delete</button> </br> </br>`;
-    // let tmp = "";
-    tmp += displayNotes(data.highlights);
-    const ele = document.getElementById("popover");
-    if (ele) {
-      ele.innerHTML = tmp;
-      ele.style.padding = "8px";
-      document
-        .getElementById("myButton")
-        ?.addEventListener("click", () => handleFolderDelete(url));
-    }
+
+    // Popover text
+    // let tmp = `<button id="myButton">delete</button> </br> </br>`;
+    displayPopoverHighlights(data.highlights);
+    // const ele = document.getElementById("popover");
+    // if (ele) {
+    //   ele.innerHTML = tmp;
+    //   ele.style.padding = "8px";
+    //   document
+    //     .getElementById("myButton")
+    //     ?.addEventListener("click", () => handleFolderDelete(url));
+    // }
   };
   const handleMouseLeave = () => {
     setShadow(false);

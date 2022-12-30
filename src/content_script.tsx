@@ -1,5 +1,6 @@
 import { createHighlight } from "./contentScript/createHighlight";
 import { loadAllHighlights } from "./contentScript/loadAllHighlights";
+import { showHighlight } from "./contentScript/showHighlight";
 
 window.addEventListener("load", function () {
   console.log("hello");
@@ -7,6 +8,16 @@ window.addEventListener("load", function () {
 });
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-  createHighlight(request.arguments);
+  console.log(request.action);
+  switch (request.action) {
+    case "create-highlight":
+      createHighlight(request.arguments);
+      break;
+    case "show-highlight":
+      console.log("finally??");
+      showHighlight("3");
+      break;
+  }
+
   sendResponse({ result: "success" });
 });

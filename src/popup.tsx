@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import FolderStructure from "./components/FolderStructure/FolderStructure";
 import { DataType } from "./types/types";
-import { displayNotes } from "./utils/utils";
+import { displayMainHighlights } from "./utils/utils";
 import "./styles/folder.css";
 import Popover from "./components/Popover";
 import { Box } from "@chakra-ui/react";
@@ -36,11 +36,12 @@ const Popup: React.FC<PopupProps> = ({ localData }) => {
       return;
     }
     console.log("data[currentUrl]", data[currentUrl]);
-    const tmp = displayNotes(data[currentUrl]["highlights"]);
-    const ele = document.getElementById("page-notes");
-    if (ele) {
-      ele.innerHTML = tmp;
-    }
+    // const tmp = displayNotes(data[currentUrl]["highlights"]);
+    // const ele = document.getElementById("page-notes");
+    displayMainHighlights(data[currentUrl]["highlights"]);
+    // if (ele) {
+    // ele.innerHTML = tmp;
+    // }
   }, [currentUrl, data]);
 
   chrome.storage.onChanged.addListener((changes, namespace) => {
@@ -76,7 +77,7 @@ const Popup: React.FC<PopupProps> = ({ localData }) => {
             <b>Notes:</b>
             <br />
             <br />
-            <Box maxH={"200px"} overflow={"scroll"} id={"page-notes"} />
+            <Box maxH={"200px"} overflow={"scroll"} id={"highlight-list"} />
           </Box>
         ) : (
           "NO NOTES FOR THIS PAGE"
