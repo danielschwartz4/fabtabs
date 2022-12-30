@@ -1,10 +1,12 @@
+import { Highlight } from "../types/types";
 import { recursiveWrapper } from "./highlightWrapper";
 
 export function highlight(
   selString: string,
   container: Element,
   selection: Selection | any,
-  highlightIndex: number
+  highlightIndex: number,
+  uuid: string
 ) {
   const highlightInfo = {
     color: "yellow",
@@ -15,6 +17,7 @@ export function highlight(
     anchorOffset: selection.anchorOffset,
     focus: selection.focusNode as Node,
     focusOffset: selection.focusOffset,
+    uuid: uuid,
   };
 
   /**

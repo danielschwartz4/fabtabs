@@ -17,6 +17,7 @@ function _recursiveWrapper(
     textColor,
     highlightIndex,
     selectionString,
+    uuid,
   } = highlightInfo;
   const selectionLength = selectionString.length;
 
@@ -123,7 +124,8 @@ function _recursiveWrapper(
     );
     highlightNode.style.backgroundColor = "yellow";
     highlightNode.style.color = textColor;
-    highlightNode.dataset.highlightId = highlightIndex;
+    // highlightNode.dataset.highlightId = highlightIndex;
+    highlightNode.dataset.highlightId = uuid;
     highlightNode.textContent = highlightTextEl.nodeValue;
     highlightTextEl.remove();
     parent?.insertBefore(highlightNode, insertBeforeElement);

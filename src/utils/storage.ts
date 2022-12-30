@@ -12,7 +12,7 @@ export async function store(
   title: string,
   color = "yellow",
   textColor = "inherit"
-) {
+): Promise<[number, string]> {
   const { tabs } = await chrome.storage.local.get({ tabs: {} });
   console.log("tabs", tabs);
 
@@ -24,6 +24,8 @@ export async function store(
     tabs[url] = { highlights: [], title: title };
   }
 
+  const uuid = crypto.randomUUID();
+
   const obj: Highlight = {
     string: selection.toString(),
     container: getQuery(container),
@@ -34,7 +36,7 @@ export async function store(
     color,
     textColor,
     href,
-    uuid: crypto.randomUUID(),
+    uuid: uuid,
     createdAt: Date.now(),
   };
 
@@ -42,7 +44,7 @@ export async function store(
   chrome.storage.local.set({ tabs });
 
   // Return the index of the new highlight:
-  return count - 1 + alternativeUrlIndexOffset;
+  return [count - 1 + alternativeUrlIndexOffset, uuid];
 }
 
 export async function loadAll(url: string, alternativeUrl?: string) {
@@ -85,7 +87,8 @@ export function load(highlightVal: Highlight, highlightIndex: number) {
     selectionString,
     container,
     selection,
-    highlightIndex
+    highlightIndex,
+    highlightVal.uuid
   );
 
   return success;

@@ -1,8 +1,8 @@
-import { sendMessageInCurrentTab } from "../utils/utils";
+import { getCurrentTab, sendMessageInCurrentTab } from "../utils/utils";
 
 export function initializeKeyboardShortcutEventListeners() {
   // Add Keyboard shortcuts
-  chrome.commands.onCommand.addListener((command) => {
+  chrome.commands.onCommand.addListener(async (command) => {
     switch (command) {
       case "execute-highlight":
         console.log("in");
@@ -26,10 +26,12 @@ export function initializeKeyboardShortcutEventListeners() {
         //     );
         //   }
         // );
+        const tab = await getCurrentTab();
         sendMessageInCurrentTab(
           {
             action: "create-highlight",
             command: "append",
+            arguments: tab.title,
           },
           function (response) {
             console.log("response", response);

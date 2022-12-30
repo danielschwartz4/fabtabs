@@ -13,7 +13,8 @@ export async function createHighlight(
   while (container && container?.childNodes.length === 0) {
     container = container.parentNode as Element;
   }
-  const highlightIndex = await store(
+
+  const [highlightIndex, uuid] = await store(
     selection as Selection,
     container,
     location.hostname + location.pathname,
@@ -25,6 +26,7 @@ export async function createHighlight(
     selectionString,
     container as Element,
     selection as Selection,
-    highlightIndex
+    highlightIndex,
+    uuid
   );
 }

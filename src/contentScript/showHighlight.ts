@@ -3,7 +3,9 @@ export function showHighlight(highlightId: string) {
   // const highlightEl = document.querySelector(
   //   `[data-highlight-id="${highlightId}"]`
   // );
-  const highlightEl = document.querySelector(`[data-highlight-id="2"]`);
+  const highlightEl = document.querySelector(
+    `[data-highlight-id="c1e2fad4-e987-4369-ad74-3c8b45656cbb"]`
+  );
   highlightEl?.scrollIntoView();
 
   // if (highlightEl) {
