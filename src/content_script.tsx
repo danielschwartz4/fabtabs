@@ -8,14 +8,14 @@ window.addEventListener("load", function () {
 });
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-  console.log(request.action);
+  console.log("contentscript request", request);
   switch (request.action) {
     case "create-highlight":
       createHighlight(request.arguments);
       break;
     case "show-highlight":
       console.log("finally??");
-      showHighlight("3");
+      showHighlight(request.arguments);
       break;
   }
 

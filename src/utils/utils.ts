@@ -12,7 +12,11 @@ export const displayMainHighlights = (highlights: Highlight[]) => {
     newEl.innerText = " - " + h.string;
     newEl.addEventListener("click", () => {
       console.log("clicked");
-      chrome.runtime.sendMessage({ action: "show-highlight" });
+      console.log(h.uuid);
+      chrome.runtime.sendMessage({
+        action: "show-highlight",
+        arguments: h.uuid,
+      });
     });
     highlightList?.appendChild(newEl);
   }
@@ -30,7 +34,10 @@ export const displayPopoverHighlights = (highlights: Highlight[]) => {
     newEl.classList.add("highlight");
     newEl.innerText = " - " + h.string;
     newEl.addEventListener("click", () => {
-      chrome.runtime.sendMessage({ action: "show-highlight" });
+      chrome.runtime.sendMessage({
+        action: "show-highlight",
+        arguments: h.uuid,
+      });
     });
     highlightList?.appendChild(newEl);
   }
@@ -86,6 +93,8 @@ export async function sendMessageInCurrentTab(
   message: any,
   callback?: ((response: any) => void) | undefined
 ) {
+  console.log("HEHEHEHER");
+  console.log(message);
   const tab = await getCurrentTab();
   if (!tab.id) return;
   return sendMessageInTab(tab.id, message, callback);

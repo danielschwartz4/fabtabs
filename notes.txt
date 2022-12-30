@@ -19,7 +19,7 @@ data: {
 
 
 TODO
-
+- make url link work
 - Don't open new tab on click
 - popup for deletion
 - Organize

@@ -7,6 +7,7 @@ export function initializeMessageEventListeners() {
       case "show-highlight":
         sendMessageInCurrentTab({
           action: "show-highlight",
+          arguments: request.arguments,
         });
     }
   });
