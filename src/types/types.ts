@@ -1,4 +1,4 @@
-export type DataType = {
+export type DataTypeDep = {
   [url: string]: {
     notes: NotesType;
     title: string;
@@ -8,6 +8,13 @@ export type DataType = {
 export type NotesType = { [note: string]: NoteType };
 
 export type NoteType = { posUrl: string; comment?: string };
+
+export type DataType = {
+  [url: string]: {
+    highlights: Highlight[];
+    title: string;
+  };
+};
 
 export interface Highlight {
   string: string;

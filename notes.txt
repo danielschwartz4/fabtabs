@@ -23,6 +23,10 @@ TODO
 - Organize
 - Style
 - Better delete
-- ChatGPT
 - Don't open new tab on click
 - # highlights on a page number circle
+- popup for deletion
+- notes in popup
+- ChatGPT
+
+Delete storage: chrome.storage.local.clear()

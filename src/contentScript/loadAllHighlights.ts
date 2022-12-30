@@ -3,8 +3,8 @@ import { loadAll } from "../utils/storage";
 export function loadAllHighlights() {
   function loadAllHighlightsOnPage() {
     loadAll(
-      window.location.hostname + window.location.pathname,
-      window.location.pathname
+      window.location.hostname + window.location.pathname
+      // window.location.pathname
     );
   }
   console.log("A");

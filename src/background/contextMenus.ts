@@ -19,39 +19,39 @@ export const contextMenus = () => {
       console.log("no text selected");
       return;
     }
-    selectionText = processText(selectionText);
+    // selectionText = processText(selectionText);
 
-    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-      chrome.storage.local.get("data", function (data) {
-        if (data === undefined) {
-          data = {};
-        }
-        if (pageUrl.includes("#")) {
-          pageUrl = pageUrl.substring(0, pageUrl.indexOf("#"));
-        }
+    // chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    //   chrome.storage.local.get("data", function (data) {
+    //     if (data === undefined) {
+    //       data = {};
+    //     }
+    //     if (pageUrl.includes("#")) {
+    //       pageUrl = pageUrl.substring(0, pageUrl.indexOf("#"));
+    //     }
 
-        const linkToHighlight =
-          pageUrl + "#:~:text=" + encodeURIComponent(selectionText as string);
+    //     const linkToHighlight =
+    //       pageUrl + "#:~:text=" + encodeURIComponent(selectionText as string);
 
-        const obj: DataType = {
-          ...data["data"],
-        };
+    //     const obj: DataType = {
+    //       ...data["data"],
+    //     };
 
-        if (obj[pageUrl] === undefined) {
-          obj[pageUrl] = { notes: {}, title: tabs[0].title as string };
-        }
-        if (selectionText && selectionText.split(" ").length > 30) {
-          const index = selectionText.indexOf(" ") + 120;
-          selectionText = selectionText.substring(0, index) + "...";
-        }
-        obj[pageUrl]["notes"][selectionText as string] = {
-          posUrl: linkToHighlight,
-        };
+    //     if (obj[pageUrl] === undefined) {
+    //       obj[pageUrl] = { notes: {}, title: tabs[0].title as string };
+    //     }
+    //     if (selectionText && selectionText.split(" ").length > 30) {
+    //       const index = selectionText.indexOf(" ") + 120;
+    //       selectionText = selectionText.substring(0, index) + "...";
+    //     }
+    //     obj[pageUrl]["notes"][selectionText as string] = {
+    //       posUrl: linkToHighlight,
+    //     };
 
-        chrome.storage.local.set({ data: obj }).then(() => {
-          console.log("Value is set to " + obj);
-        });
-      });
-    });
+    //     chrome.storage.local.set({ data: obj }).then(() => {
+    //       console.log("Value is set to " + obj);
+    //     });
+    //   });
+    // });
   });
 };

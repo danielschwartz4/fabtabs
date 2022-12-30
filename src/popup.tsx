@@ -13,36 +13,35 @@ interface PopupProps {
 
 const Popup: React.FC<PopupProps> = ({ localData }) => {
   const [data, setData] = useState<DataType>();
-
-  const [currentURL, setCurrentURL] = useState<string>();
-  console.log(data);
+  const [currentUrl, setCurrentUrl] = useState<string>();
 
   useEffect(() => {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-      const url = tabs[0].url;
+      let url = tabs[0].url;
+      console.log("first url", url);
+      // Incase it's a "link to highlight" url
       if (url?.includes("#")) {
-        setCurrentURL(url.substring(0, url.indexOf("#")));
-      } else {
-        setCurrentURL(url);
+        url = url.substring(0, url.indexOf("#"));
       }
+      url = url?.substring(url.indexOf("//") + 2);
+      setCurrentUrl(url);
     });
     setData(localData);
   }, []);
 
   useEffect(() => {
-    console.log(data);
-  }, [data]);
-
-  useEffect(() => {
-    if (!currentURL || !data || !data[currentURL]) {
+    console.log("FIRST");
+    console.log(currentUrl, data);
+    if (!currentUrl || !data || !data[currentUrl]) {
       return;
     }
-    const tmp = displayNotes(data[currentURL]["notes"]);
+    console.log("data[currentUrl]", data[currentUrl]);
+    const tmp = displayNotes(data[currentUrl]["highlights"]);
     const ele = document.getElementById("page-notes");
     if (ele) {
       ele.innerHTML = tmp;
     }
-  }, [currentURL]);
+  }, [currentUrl, data]);
 
   chrome.storage.onChanged.addListener((changes, namespace) => {
     for (let [key, { oldValue, newValue }] of Object.entries(changes)) {
@@ -72,7 +71,7 @@ const Popup: React.FC<PopupProps> = ({ localData }) => {
       <Popover />
       <hr style={{ marginBottom: "1.5em", marginTop: "1.5em" }} />
       <Box mt={"16px"}>
-        {data && data[currentURL as string] ? (
+        {currentUrl && data && data[currentUrl] ? (
           <Box>
             <b>Notes:</b>
             <br />
@@ -89,12 +88,11 @@ const Popup: React.FC<PopupProps> = ({ localData }) => {
 
 export default Popup;
 
-chrome.storage.local.get(function (tabs) {
-  console.log("tabs", tabs);
+chrome.storage.local.get(function (data) {
   ReactDOM.render(
     <React.StrictMode>
-      {tabs && Object.keys(tabs).length !== 0 ? (
-        <Popup localData={tabs} />
+      {data && Object.keys(data).length !== 0 ? (
+        <Popup localData={data.tabs} />
       ) : (
         <Box h={"200px"} w={"400px"}>
           NO DATA SAVED YET

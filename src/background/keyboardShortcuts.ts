@@ -13,7 +13,7 @@ export function initializeKeyboardShortcutEventListeners() {
             setTimeout(() => {}, 1000);
             chrome.tabs.sendMessage(
               tabs[0].id,
-              { command: "append" },
+              { command: "append", arguments: tabs[0].title },
               function (response) {
                 console.log("response", response);
               }

@@ -1,13 +1,13 @@
 import { Box, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
 import "../../styles/folder.css";
-import { NotesType } from "../../types/types";
+import { Highlight, NotesType } from "../../types/types";
 import { displayNotes } from "../../utils/utils";
 
 interface FolderProps {
   url: string;
   data: {
-    notes: NotesType;
+    highlights: Highlight[];
     title: string;
   };
   handleFolderDelete: (url: string) => void;
@@ -19,7 +19,7 @@ const Folder: React.FC<FolderProps> = ({ url, data, handleFolderDelete }) => {
     setShadow(true);
     let tmp = `<button id="myButton">delete</button> </br> </br>`;
     // let tmp = "";
-    tmp += displayNotes(data.notes);
+    tmp += displayNotes(data.highlights);
     const ele = document.getElementById("popover");
     if (ele) {
       ele.innerHTML = tmp;

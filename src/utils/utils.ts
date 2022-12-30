@@ -1,13 +1,23 @@
-import { DataType, NotesType } from "../types/types";
+import { DataType, Highlight, NotesType } from "../types/types";
 
-export const displayNotes = (notes: { [note: string]: { posUrl: string } }) => {
+// export const displayNotes = (notes: { [note: string]: { posUrl: string } }) => {
+//   let tmp = "";
+
+//   for (var key in notes) {
+//     if (notes.hasOwnProperty(key)) {
+//       // Key should eventually point to comment
+//       tmp += `<div>- <a href="${notes[key]["posUrl"]}" target="_blank">${key}</a> </br> </br></div>`;
+//     }
+//   }
+//   return tmp;
+// };
+
+export const displayNotes = (highlights: Highlight[]) => {
   let tmp = "";
 
-  for (var key in notes) {
-    if (notes.hasOwnProperty(key)) {
-      // Key should eventually point to comment
-      tmp += `<div>- <a href="${notes[key]["posUrl"]}" target="_blank">${key}</a> </br> </br></div>`;
-    }
+  for (var h of highlights) {
+    // !! Get rid of href and make it so click goes to highlight
+    tmp += `<div>- <a href="${h.href}" target="_blank">${h.string}</a> </br> </br></div>`;
   }
   return tmp;
 };
