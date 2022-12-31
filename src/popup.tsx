@@ -83,7 +83,7 @@ const Popup: React.FC<PopupProps> = ({ localData }) => {
         <Popover />
         <Box>
           {currentUrl && data && data[currentUrl] ? (
-            <Box h={"200px"}>
+            <Box h={"200px"} overflow={"scroll"}>
               {/* <b>{data[currentUrl].title}</b> Highlights
               <br />
               <br />
