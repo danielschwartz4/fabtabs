@@ -6,7 +6,6 @@ interface ResultsProps {
 }
 
 const Results: React.FC<ResultsProps> = ({ filteredData }) => {
-  console.log("filteredData", filteredData);
   return (
     <Box
       style={{
@@ -20,10 +19,10 @@ const Results: React.FC<ResultsProps> = ({ filteredData }) => {
       bgColor="white"
     >
       <Box>
+        {/* val changes depending on coming from stringResult or href result */}
         {filteredData && filteredData.length > 0 ? (
           filteredData.map((val: any, idx: number) => {
-            console.log(val);
-            return <Box key={idx}>{val[0]}</Box>;
+            return <Box key={idx}>- {val.string}</Box>;
           })
         ) : (
           <Box>Nothing matching</Box>

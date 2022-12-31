@@ -20,6 +20,7 @@ data: {
 
 TODO
 - popup for deletion
+- no hover, click to view
 - Organize
 - search bar
 - Style

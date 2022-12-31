@@ -15,17 +15,22 @@ const Search: React.FC<SearchProps> = ({ data }) => {
 
   const regex = new RegExp(`.*${searchVal}.*`, "i");
 
-  const filter = {
+  const stringFilter = {
     string: regex,
+  };
+
+  const hrefFilter = {
+    href: regex,
   };
 
   useEffect(() => {
     let filtered: any;
     if (data) {
-      filtered = Object.entries(data).filter(([key, val]) => regex.test(key));
-      const result = JsonFilter(data, filter);
-      const elements = result.all();
-      console.log("elements", elements);
+      // filtered = Object.entries(data).filter(([key, val]) => regex.test(key));
+      // !! Map these two separately and display separately
+      const stringResult = JsonFilter(data, stringFilter);
+      const hrefResult = JsonFilter(data, hrefFilter);
+      filtered = [...new Set([...stringResult.all(), ...hrefResult.all()])];
     }
     setFiltered(filtered);
   }, [searchVal]);
