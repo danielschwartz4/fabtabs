@@ -7,7 +7,12 @@ interface TitleProps {
 
 const Title: React.FC<TitleProps> = ({ text }) => {
   return (
-    <Text position={"static"} textColor={"#453F68"} fontSize={"14px"}>
+    <Text
+      mb={"4px"}
+      position={"static"}
+      textColor={"#453F68"}
+      fontSize={"14px"}
+    >
       {text}
     </Text>
   );

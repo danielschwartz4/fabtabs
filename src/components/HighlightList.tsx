@@ -13,10 +13,15 @@ const HighlightList: React.FC<HighlightListProps> = ({ title, highlights }) => {
   return (
     <>
       {highlights ? (
-        <Stack overflow={"scroll"} borderRadius={"4px"} padding={4}>
+        <Stack
+          maxH={"300px"}
+          overflow={"scroll"}
+          borderRadius={"4px"}
+          padding={4}
+        >
           <Title text={title} />
           {highlights.map(function (h, i) {
-            return <Entry key={i} text={h.string} />;
+            return <Entry key={i} text={h.string} uuid={h.uuid} canClick />;
           })}
         </Stack>
       ) : null}

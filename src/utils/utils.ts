@@ -1,4 +1,4 @@
-import { DataType, Highlight, NotesType } from "../types/types";
+import { DataType, Highlight } from "../types/types";
 
 export const displayMainHighlights = (highlights: Highlight[]) => {
   const highlightList = document.getElementById("highlight-list");

@@ -18,9 +18,11 @@ const Folder: React.FC<FolderProps> = ({ url, data, handleFolderDelete }) => {
   const handleMouseOver = () => {
     setShadow(true);
 
-    // Popover text
+    //// Delete
     // let tmp = `<button id="myButton">delete</button> </br> </br>`;
-    displayPopoverHighlights(data.highlights);
+
+    //// Popover
+    // displayPopoverHighlights(data.highlights);
     // const ele = document.getElementById("popover");
     // if (ele) {
     //   ele.innerHTML = tmp;
@@ -54,6 +56,7 @@ const Folder: React.FC<FolderProps> = ({ url, data, handleFolderDelete }) => {
           whiteSpace={"nowrap"}
           textOverflow={"ellipsis"}
           padding={"8px"}
+          textColor={"#170F47"}
         >
           <Text padding={2} my={"auto"}>
             {data.title}

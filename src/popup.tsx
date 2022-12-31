@@ -1,7 +1,8 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Stack } from "@chakra-ui/react";
 import "@fontsource/molengo";
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
+import Entry from "./components/Entry";
 import FolderStructure from "./components/FolderStructure/FolderStructure";
 import Footer from "./components/Footer";
 import HighlightList from "./components/HighlightList";
@@ -52,15 +53,20 @@ const Popup: React.FC<PopupProps> = ({ localData }) => {
 
   return (
     <>
-      <Box
+      <Stack
         h={"567px"}
         w={"336px"}
         padding={".5em"}
         margin={"-8px"}
         bgColor={"#F3F2F9"}
         fontFamily={"Molengo"}
+        overflow={"hidden"}
       >
         <Search data={data}></Search>
+        <Box padding={4}>
+          <Title text={"current page"} />
+        </Box>
+        <Entry text={currentUrl as string} />
         {data ? (
           <Box border={"2px"} borderColor={"black"}>
             <FolderStructure setData={setData} data={data} />
@@ -71,7 +77,7 @@ const Popup: React.FC<PopupProps> = ({ localData }) => {
           </Box>
         )}
         <Popover />
-        <Box mt={"16px"}>
+        <Box>
           {currentUrl && data && data[currentUrl] ? (
             <Box>
               {/* <b>{data[currentUrl].title}</b> Highlights
@@ -87,7 +93,7 @@ const Popup: React.FC<PopupProps> = ({ localData }) => {
             <Title text="You haven't made any highlights on this page :'(" />
           )}
         </Box>
-      </Box>
+      </Stack>
       <Footer></Footer>
     </>
   );

@@ -3,9 +3,19 @@ import React from "react";
 
 interface EntryProps {
   text: string;
+  uuid?: string;
+  canClick?: boolean;
 }
 
-const Entry: React.FC<EntryProps> = ({ text }) => {
+const Entry: React.FC<EntryProps> = ({ text, uuid, canClick }) => {
+  const showHighlight = (uuid: string) => {
+    console.log("hleloo");
+    chrome.runtime.sendMessage({
+      action: "show-highlight",
+      arguments: uuid,
+    });
+  };
+
   return (
     <Box
       bgColor={"white"}
@@ -15,8 +25,15 @@ const Entry: React.FC<EntryProps> = ({ text }) => {
       textOverflow={"ellipsis"}
       padding={"8px"}
       textColor={"#170F47"}
+      cursor={"pointer"}
     >
-      <Text padding={2} my={"auto"}>
+      <Text
+        onClick={() => {
+          if (canClick && uuid) showHighlight(uuid);
+        }}
+        padding={2}
+        my={"auto"}
+      >
         {text}
       </Text>
     </Box>

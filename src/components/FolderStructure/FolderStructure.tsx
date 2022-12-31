@@ -22,7 +22,7 @@ const FolderStructure: React.FC<FolderStructureProps> = ({ data, setData }) => {
   return (
     <Box>
       <Stack
-        maxH={"200px"}
+        maxH={"300px"}
         overflow={"scroll"}
         borderRadius={"4px"}
         padding={4}
