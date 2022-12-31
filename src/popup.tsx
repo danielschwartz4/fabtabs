@@ -49,11 +49,11 @@ const Popup: React.FC<PopupProps> = ({ localData }) => {
 
   return (
     <Box
-      h={"400px"}
-      w={"400px"}
+      h={"567px"}
+      w={"336px"}
       padding={".5em"}
-      outline={"2px"}
-      outlineColor={"black"}
+      margin={"-8px"}
+      backgroundColor={"#F3F2F9"}
     >
       <Search data={data}></Search>
       <hr style={{ marginBottom: "1.5em", marginTop: "1.5em" }} />
