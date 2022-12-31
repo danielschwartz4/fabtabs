@@ -9,7 +9,6 @@ interface EntryProps {
 
 const Entry: React.FC<EntryProps> = ({ text, uuid, canClick }) => {
   const showHighlight = (uuid: string) => {
-    console.log("hleloo");
     chrome.runtime.sendMessage({
       action: "show-highlight",
       arguments: uuid,

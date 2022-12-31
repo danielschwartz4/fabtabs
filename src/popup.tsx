@@ -52,21 +52,25 @@ const Popup: React.FC<PopupProps> = ({ localData }) => {
   });
 
   return (
-    <>
+    <Box padding={".5em"} margin={"-8px"}>
       <Stack
         h={"567px"}
         w={"336px"}
-        padding={".5em"}
-        margin={"-8px"}
+        m={"-8px"}
+        p={"1em"}
         bgColor={"#F3F2F9"}
         fontFamily={"Molengo"}
         overflow={"hidden"}
       >
         <Search data={data}></Search>
-        <Box padding={4}>
-          <Title text={"current page"} />
-        </Box>
-        <Entry text={currentUrl as string} />
+        {currentUrl ? (
+          <Box>
+            <Box padding={4}>
+              <Title text={"current page"} />
+            </Box>
+            <Entry text={currentUrl} />
+          </Box>
+        ) : null}
         {data ? (
           <Box border={"2px"} borderColor={"black"}>
             <FolderStructure setData={setData} data={data} />
@@ -79,7 +83,7 @@ const Popup: React.FC<PopupProps> = ({ localData }) => {
         <Popover />
         <Box>
           {currentUrl && data && data[currentUrl] ? (
-            <Box>
+            <Box h={"200px"}>
               {/* <b>{data[currentUrl].title}</b> Highlights
               <br />
               <br />
@@ -94,8 +98,8 @@ const Popup: React.FC<PopupProps> = ({ localData }) => {
           )}
         </Box>
       </Stack>
-      <Footer></Footer>
-    </>
+      {/* <Footer></Footer> */}
+    </Box>
   );
 };
 
