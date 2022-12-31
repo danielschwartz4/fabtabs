@@ -32,6 +32,7 @@ const Entry: React.FC<EntryProps> = ({ text, uuid, canClick }) => {
         }}
         padding={2}
         my={"auto"}
+        isTruncated
       >
         {text}
       </Text>

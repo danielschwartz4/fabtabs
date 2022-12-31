@@ -5,16 +5,15 @@ import Entry from "./Entry";
 import Title from "./Title";
 
 interface HighlightListProps {
-  title: string;
   highlights: Highlight[];
 }
 
-const HighlightList: React.FC<HighlightListProps> = ({ title, highlights }) => {
+const HighlightList: React.FC<HighlightListProps> = ({ highlights }) => {
   return (
     <>
       {highlights ? (
         <Stack overflow={"scroll"} borderRadius={"4px"} padding={4}>
-          <Title text={title} />
+          <Title text={"highlights on selected page"} />
           {highlights.map(function (h, i) {
             return <Entry key={i} text={h.string} uuid={h.uuid} canClick />;
           })}

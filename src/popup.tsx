@@ -4,14 +4,12 @@ import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import Entry from "./components/Entry";
 import FolderStructure from "./components/FolderStructure/FolderStructure";
-import Footer from "./components/Footer";
 import HighlightList from "./components/HighlightList";
 import Popover from "./components/Popover";
 import Search from "./components/Search/Search";
 import Title from "./components/Title";
 import "./styles/folder.css";
 import { DataType } from "./types/types";
-import { displayMainHighlights } from "./utils/utils";
 
 interface PopupProps {
   localData: DataType;
@@ -20,6 +18,7 @@ interface PopupProps {
 const Popup: React.FC<PopupProps> = ({ localData }) => {
   const [data, setData] = useState<DataType>();
   const [currentUrl, setCurrentUrl] = useState<string>();
+  const [currentTitle, setCurrentTitle] = useState<string>();
 
   useEffect(() => {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
@@ -30,6 +29,7 @@ const Popup: React.FC<PopupProps> = ({ localData }) => {
       }
       url = url?.substring(url.indexOf("//") + 2);
       setCurrentUrl(url);
+      setCurrentTitle(tabs[0].title);
     });
     setData(localData);
   }, []);
@@ -63,12 +63,12 @@ const Popup: React.FC<PopupProps> = ({ localData }) => {
         overflow={"hidden"}
       >
         <Search data={data}></Search>
-        {currentUrl ? (
+        {currentTitle ? (
           <Box>
             <Box padding={4}>
               <Title text={"current page"} />
             </Box>
-            <Entry text={currentUrl} />
+            <Entry text={currentTitle} />
           </Box>
         ) : null}
         {data ? (
@@ -88,10 +88,7 @@ const Popup: React.FC<PopupProps> = ({ localData }) => {
               <br />
               <br />
               <Box maxH={"200px"} overflow={"scroll"} id={"highlight-list"} /> */}
-              <HighlightList
-                title={data[currentUrl].title}
-                highlights={data[currentUrl]["highlights"]}
-              />
+              <HighlightList highlights={data[currentUrl]["highlights"]} />
             </Box>
           ) : (
             <Title text="You haven't made any highlights on this page :'(" />

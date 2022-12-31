@@ -1,29 +1,48 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Stack } from "@chakra-ui/react";
 import React from "react";
+import { Highlight } from "../../types/types";
+import Entry from "../Entry";
+import Title from "../Title";
+import SearchEntry from "./SearchEntry";
 
 interface ResultsProps {
-  filteredData: any;
+  // filteredData: Highlight[];
+  highlightData: Highlight[] | undefined;
+  pageData: Highlight[] | undefined;
 }
 
-const Results: React.FC<ResultsProps> = ({ filteredData }) => {
+const Results: React.FC<ResultsProps> = ({ highlightData, pageData }) => {
+  console.log("highlightData", highlightData);
+  console.log("pageData", pageData);
+
   return (
     <Box
       h={"567px"}
-      overflow={"scroll"}
+      // overflow={"scroll"}
       borderRadius={"4px"}
       padding={4}
       bgColor="#F3F2F9"
     >
-      <Box>
-        {/* val changes depending on coming from stringResult or href result */}
-        {filteredData && filteredData.length > 0 ? (
-          filteredData.map((val: any, idx: number) => {
-            return <Box key={idx}>- {val.string}</Box>;
+      <Title text="pages"></Title>
+      <Stack overflow={"scroll"} borderRadius={"4px"} padding={4}>
+        {highlightData && highlightData.length > 0 ? (
+          highlightData.map((val: any, idx: number) => {
+            return <SearchEntry type="page" highlight={val}></SearchEntry>;
           })
         ) : (
-          <Box>Nothing matching</Box>
+          <Title text="no page matches" />
         )}
-      </Box>
+      </Stack>
+      <Title text="highlights"></Title>
+      <Stack overflow={"scroll"} borderRadius={"4px"} padding={4}>
+        {pageData && pageData.length > 0 ? (
+          pageData.map((val: any, idx: number) => {
+            return <SearchEntry type="highlight" highlight={val}></SearchEntry>;
+          })
+        ) : (
+          <Title text="no highlight" />
+        )}
+      </Stack>
     </Box>
   );
 };

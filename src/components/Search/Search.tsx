@@ -1,7 +1,8 @@
 import { Box } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { DataType } from "../../types/types";
+import { DataType, Highlight } from "../../types/types";
 import { JsonFilter } from "../../utils/parseJson";
+import Title from "../Title";
 import Results from "./Results";
 import SearchBar from "./SearchBar";
 
@@ -11,7 +12,8 @@ interface SearchProps {
 
 const Search: React.FC<SearchProps> = ({ data }) => {
   const [searchVal, setSearchVal] = useState<string>("");
-  const [filtered, setFiltered] = useState<DataType>();
+  const [highlightData, setHighlightData] = useState<Highlight[]>();
+  const [pageData, setPageData] = useState<Highlight[]>();
 
   const regex = new RegExp(`.*${searchVal}.*`, "i");
 
@@ -25,14 +27,21 @@ const Search: React.FC<SearchProps> = ({ data }) => {
 
   useEffect(() => {
     let filtered: any;
+    let hd: Highlight[] | undefined;
+    let pd: Highlight[] | undefined;
     if (data) {
       // filtered = Object.entries(data).filter(([key, val]) => regex.test(key));
       // !! Map these two separately and display separately
       const stringResult = JsonFilter(data, stringFilter);
+      hd = stringResult.all();
       const hrefResult = JsonFilter(data, hrefFilter);
-      filtered = [...new Set([...stringResult.all(), ...hrefResult.all()])];
+      pd = hrefResult.all();
+
+      // filtered = [...new Set([...stringResult.all(), ...hrefResult.all()])];
     }
-    setFiltered(filtered);
+    setHighlightData(hd);
+    setPageData(pd);
+    // setFiltered(filtered);
   }, [searchVal]);
 
   return (
@@ -40,9 +49,15 @@ const Search: React.FC<SearchProps> = ({ data }) => {
       <SearchBar setSearchVal={setSearchVal}></SearchBar>
       {searchVal ? (
         <Box width={"inherit"}>
-          <Box width={"inherit"} zIndex={10} position={"absolute"}>
-            {data ? <Results filteredData={filtered}></Results> : null}
-          </Box>
+          {highlightData || pageData ? (
+            <Box width={"inherit"} zIndex={10} position={"absolute"}>
+              {data ? (
+                <Results highlightData={highlightData} pageData={pageData} />
+              ) : null}
+            </Box>
+          ) : (
+            <Title text="no matches" />
+          )}
         </Box>
       ) : (
         <></>
