@@ -6,19 +6,23 @@ import Title from "../Title";
 import SearchEntry from "./SearchEntry";
 
 interface ResultsProps {
-  // filteredData: Highlight[];
+  searchVal: string;
   highlightData: Highlight[] | undefined;
   titleData: PageGroup[] | undefined;
 }
 
-const Results: React.FC<ResultsProps> = ({ highlightData, titleData }) => {
+const Results: React.FC<ResultsProps> = ({
+  searchVal,
+  highlightData,
+  titleData,
+}) => {
   console.log("titleData", titleData);
   console.log("pageData");
 
   return (
     <Box
       h={"567px"}
-      // overflow={"scroll"}
+      overflow={"scroll"}
       borderRadius={"4px"}
       padding={4}
       bgColor="#F3F2F9"
@@ -27,13 +31,12 @@ const Results: React.FC<ResultsProps> = ({ highlightData, titleData }) => {
       <Stack overflow={"scroll"} borderRadius={"4px"} padding={4}>
         {titleData && titleData.length > 0 ? (
           titleData.map((val: PageGroup, idx: number) => {
-            console.log("HERE", val.highlights);
             return (
               <SearchEntry
                 key={idx}
-                type="page"
-                highlight={val.highlights[0]}
                 href={val.highlights[0].href}
+                text={val.title}
+                searchVal={searchVal}
               />
             );
           })
@@ -48,9 +51,9 @@ const Results: React.FC<ResultsProps> = ({ highlightData, titleData }) => {
             return (
               <SearchEntry
                 key={idx}
-                type="highlight"
-                highlight={val}
                 href={val.href}
+                text={val.string}
+                searchVal={searchVal}
               />
             );
           })

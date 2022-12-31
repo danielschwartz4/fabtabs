@@ -22,6 +22,8 @@ TODO now
 - search
 - bold search
 - click to popup notes?
+- scrolling doesn't work on for highlights
+- add search for url not only title
 
 
 TODO
@@ -34,7 +36,7 @@ TODO
 - delete tabs
 - allow user to write notes
 - Highlight everything
-- # highlights on a page number circle
+- highlights on a page number circle
 - space bar for highlights
 - ChatGPT
 

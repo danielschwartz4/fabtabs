@@ -54,7 +54,11 @@ const Search: React.FC<SearchProps> = ({ data }) => {
           {highlightData || titleData ? (
             <Box width={"inherit"} zIndex={10} position={"absolute"}>
               {data ? (
-                <Results highlightData={highlightData} titleData={titleData} />
+                <Results
+                  searchVal={searchVal}
+                  highlightData={highlightData}
+                  titleData={titleData}
+                />
               ) : null}
             </Box>
           ) : (

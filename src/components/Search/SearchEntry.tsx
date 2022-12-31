@@ -1,14 +1,19 @@
-import { Box, Link, Text } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 import React from "react";
-import { Highlight } from "../../types/types";
+import { centerSearchWord } from "../../utils/searchUtiils";
 
 interface SearchEntryProps {
-  type: "highlight" | "page";
-  highlight: Highlight;
   href: string;
+  text: string;
+  searchVal: string;
 }
 
-const SearchEntry: React.FC<SearchEntryProps> = ({ type, highlight, href }) => {
+const SearchEntry: React.FC<SearchEntryProps> = ({ href, text, searchVal }) => {
+  const processedText = centerSearchWord(text, searchVal);
+  // const tmp = processedText.split(new RegExp(searchVal, "i"));
+  const tmp = processedText.split(new RegExp(`${searchVal}(.*)`, "i"));
+  console.log(tmp);
+
   return (
     <Box
       bgColor={"white"}
@@ -22,8 +27,13 @@ const SearchEntry: React.FC<SearchEntryProps> = ({ type, highlight, href }) => {
     >
       <Text padding={2} my={"auto"}>
         <a href={href} target="_blank">
-          {type === "highlight" ? highlight.string : highlight.href}
+          {tmp[0]}{" "}
+          <span style={{ color: "red" }}>{searchVal.toLocaleLowerCase()}</span>
+          {tmp[1]}
         </a>
+      </Text>
+      <Text color={"#8C8C8C"} mb={"4px"}>
+        {href}
       </Text>
     </Box>
   );
