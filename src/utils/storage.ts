@@ -42,18 +42,21 @@ export async function store(
   return [count - 1 + alternativeUrlIndexOffset, uuid];
 }
 
-export async function loadAll(url: string, alternativeUrl?: string) {
+export async function loadAll(
+  url: string
+  // alternativeUrl?: string
+) {
   const result = await chrome.storage.local.get({ tabs: {} });
   let highlights: Highlight[] = [];
 
   // Because of a bug in an older version of the code, some tabs were stored
   // using a key that didn't correspond to the full page URL. To fix this, if the
   // alternativeUrl exists, try to load tabs from there as well
-  if (alternativeUrl) {
-    highlights = highlights.concat(
-      result.tabs[alternativeUrl]["highlights"] || []
-    );
-  }
+  // if (alternativeUrl) {
+  //   highlights = highlights.concat(
+  //     result.tabs[alternativeUrl]["highlights"] || []
+  //   );
+  // }
   alternativeUrlIndexOffset = highlights.length;
 
   highlights = highlights.concat(result.tabs[url]["highlights"] || []);

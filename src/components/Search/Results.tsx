@@ -8,15 +8,11 @@ interface ResultsProps {
 const Results: React.FC<ResultsProps> = ({ filteredData }) => {
   return (
     <Box
-      style={{
-        boxShadow:
-          "rgb(0 0 0 / 80%) 0px 4px 8px 0px, rgb(0 0 0 / 30%) 0px 6px 20px 8px",
-      }}
-      h={"200px"}
+      h={"567px"}
       overflow={"scroll"}
       borderRadius={"4px"}
       padding={4}
-      bgColor="white"
+      bgColor="#F3F2F9"
     >
       <Box>
         {/* val changes depending on coming from stringResult or href result */}

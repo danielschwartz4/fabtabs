@@ -46,12 +46,14 @@ const Folder: React.FC<FolderProps> = ({ url, data, handleFolderDelete }) => {
                 }
               : {}
           }
+          bgColor={"white"}
+          borderRadius={"4px"}
           onMouseOver={handleMouseOver}
           onMouseLeave={handleMouseLeave}
-          fontSize={"12px"}
+          fontSize={"14px"}
           whiteSpace={"nowrap"}
           textOverflow={"ellipsis"}
-          h={"24px"}
+          padding={"8px"}
         >
           <Text padding={2} my={"auto"}>
             {data.title}

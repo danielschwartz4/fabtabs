@@ -1,14 +1,16 @@
+import { Box } from "@chakra-ui/react";
+import "@fontsource/molengo";
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import FolderStructure from "./components/FolderStructure/FolderStructure";
+import Footer from "./components/Footer";
+import HighlightList from "./components/HighlightList";
+import Popover from "./components/Popover";
+import Search from "./components/Search/Search";
+import Title from "./components/Title";
+import "./styles/folder.css";
 import { DataType } from "./types/types";
 import { displayMainHighlights } from "./utils/utils";
-import "./styles/folder.css";
-import Popover from "./components/Popover";
-import { Box, Input } from "@chakra-ui/react";
-import SearchBar from "./components/Search/SearchBar";
-import Results from "./components/Search/Results";
-import Search from "./components/Search/Search";
 
 interface PopupProps {
   localData: DataType;
@@ -35,7 +37,8 @@ const Popup: React.FC<PopupProps> = ({ localData }) => {
     if (!currentUrl || !data || !data[currentUrl]) {
       return;
     }
-    displayMainHighlights(data[currentUrl]["highlights"]);
+
+    // displayMainHighlights(data[currentUrl]["highlights"]);
   }, [currentUrl, data]);
 
   chrome.storage.onChanged.addListener((changes, namespace) => {
@@ -48,37 +51,45 @@ const Popup: React.FC<PopupProps> = ({ localData }) => {
   });
 
   return (
-    <Box
-      h={"567px"}
-      w={"336px"}
-      padding={".5em"}
-      margin={"-8px"}
-      backgroundColor={"#F3F2F9"}
-    >
-      <Search data={data}></Search>
-      <hr style={{ marginBottom: "1.5em", marginTop: "1.5em" }} />
-      {data ? (
-        <Box border={"2px"} borderColor={"black"}>
-          <FolderStructure setData={setData} data={data} />
-        </Box>
-      ) : (
-        "NO URLs SAVED YET"
-      )}
-      <Popover />
-      <hr style={{ marginBottom: "1.5em", marginTop: "1.5em" }} />
-      <Box mt={"16px"}>
-        {currentUrl && data && data[currentUrl] ? (
-          <Box>
-            <b>{data[currentUrl].title}</b> Highlights
-            <br />
-            <br />
-            <Box maxH={"200px"} overflow={"scroll"} id={"highlight-list"} />
+    <>
+      <Box
+        h={"567px"}
+        w={"336px"}
+        padding={".5em"}
+        margin={"-8px"}
+        bgColor={"#F3F2F9"}
+        fontFamily={"Molengo"}
+      >
+        <Search data={data}></Search>
+        {data ? (
+          <Box border={"2px"} borderColor={"black"}>
+            <FolderStructure setData={setData} data={data} />
           </Box>
         ) : (
-          "You haven't made any highlights on this page :'("
+          <Box padding={4}>
+            <Title text={"You haven't saved any urls yet :'("} />
+          </Box>
         )}
+        <Popover />
+        <Box mt={"16px"}>
+          {currentUrl && data && data[currentUrl] ? (
+            <Box>
+              {/* <b>{data[currentUrl].title}</b> Highlights
+              <br />
+              <br />
+              <Box maxH={"200px"} overflow={"scroll"} id={"highlight-list"} /> */}
+              <HighlightList
+                title={data[currentUrl].title}
+                highlights={data[currentUrl]["highlights"]}
+              />
+            </Box>
+          ) : (
+            <Title text="You haven't made any highlights on this page :'(" />
+          )}
+        </Box>
       </Box>
-    </Box>
+      <Footer></Footer>
+    </>
   );
 };
 
