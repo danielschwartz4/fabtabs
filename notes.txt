@@ -18,6 +18,12 @@ data: {
 }
 
 
+TODO now
+- search
+- bold search
+- click to popup notes?
+
+
 TODO
 - popup for deletion
 - no hover, click to view

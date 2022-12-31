@@ -10,10 +10,12 @@ export type NotesType = { [note: string]: NoteType };
 export type NoteType = { posUrl: string; comment?: string };
 
 export type DataType = {
-  [url: string]: {
-    highlights: Highlight[];
-    title: string;
-  };
+  [url: string]: PageGroup;
+};
+
+export type PageGroup = {
+  highlights: Highlight[];
+  title: string;
 };
 
 export interface Highlight {

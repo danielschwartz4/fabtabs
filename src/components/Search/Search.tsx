@@ -1,6 +1,7 @@
 import { Box } from "@chakra-ui/react";
+import { contains } from "jquery";
 import React, { useEffect, useState } from "react";
-import { DataType, Highlight } from "../../types/types";
+import { DataType, Highlight, PageGroup } from "../../types/types";
 import { JsonFilter } from "../../utils/parseJson";
 import Title from "../Title";
 import Results from "./Results";
@@ -13,7 +14,8 @@ interface SearchProps {
 const Search: React.FC<SearchProps> = ({ data }) => {
   const [searchVal, setSearchVal] = useState<string>("");
   const [highlightData, setHighlightData] = useState<Highlight[]>();
-  const [pageData, setPageData] = useState<Highlight[]>();
+  const [titleData, setTitleData] = useState<PageGroup[]>();
+  // const [pageData, setPageData] = useState<Highlight[]>();
 
   const regex = new RegExp(`.*${searchVal}.*`, "i");
 
@@ -21,27 +23,27 @@ const Search: React.FC<SearchProps> = ({ data }) => {
     string: regex,
   };
 
-  const hrefFilter = {
-    href: regex,
+  // const hrefFilter = {
+  //   href: regex,
+  // };
+
+  const titleFilter = {
+    title: regex,
   };
+  console.log("data", data);
 
   useEffect(() => {
-    let filtered: any;
     let hd: Highlight[] | undefined;
-    let pd: Highlight[] | undefined;
+    let td: PageGroup[] | undefined;
     if (data) {
-      // filtered = Object.entries(data).filter(([key, val]) => regex.test(key));
       // !! Map these two separately and display separately
+      const titeResult = JsonFilter(data, titleFilter);
+      td = titeResult.all();
       const stringResult = JsonFilter(data, stringFilter);
       hd = stringResult.all();
-      const hrefResult = JsonFilter(data, hrefFilter);
-      pd = hrefResult.all();
-
-      // filtered = [...new Set([...stringResult.all(), ...hrefResult.all()])];
     }
     setHighlightData(hd);
-    setPageData(pd);
-    // setFiltered(filtered);
+    setTitleData(td);
   }, [searchVal]);
 
   return (
@@ -49,10 +51,10 @@ const Search: React.FC<SearchProps> = ({ data }) => {
       <SearchBar setSearchVal={setSearchVal}></SearchBar>
       {searchVal ? (
         <Box width={"inherit"}>
-          {highlightData || pageData ? (
+          {highlightData || titleData ? (
             <Box width={"inherit"} zIndex={10} position={"absolute"}>
               {data ? (
-                <Results highlightData={highlightData} pageData={pageData} />
+                <Results highlightData={highlightData} titleData={titleData} />
               ) : null}
             </Box>
           ) : (

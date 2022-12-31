@@ -1,6 +1,6 @@
 import { Box, Stack } from "@chakra-ui/react";
 import React from "react";
-import { Highlight } from "../../types/types";
+import { DataType, Highlight, PageGroup } from "../../types/types";
 import Entry from "../Entry";
 import Title from "../Title";
 import SearchEntry from "./SearchEntry";
@@ -8,12 +8,12 @@ import SearchEntry from "./SearchEntry";
 interface ResultsProps {
   // filteredData: Highlight[];
   highlightData: Highlight[] | undefined;
-  pageData: Highlight[] | undefined;
+  titleData: PageGroup[] | undefined;
 }
 
-const Results: React.FC<ResultsProps> = ({ highlightData, pageData }) => {
-  console.log("highlightData", highlightData);
-  console.log("pageData", pageData);
+const Results: React.FC<ResultsProps> = ({ highlightData, titleData }) => {
+  console.log("titleData", titleData);
+  console.log("pageData");
 
   return (
     <Box
@@ -25,9 +25,17 @@ const Results: React.FC<ResultsProps> = ({ highlightData, pageData }) => {
     >
       <Title text="pages"></Title>
       <Stack overflow={"scroll"} borderRadius={"4px"} padding={4}>
-        {highlightData && highlightData.length > 0 ? (
-          highlightData.map((val: any, idx: number) => {
-            return <SearchEntry type="page" highlight={val}></SearchEntry>;
+        {titleData && titleData.length > 0 ? (
+          titleData.map((val: PageGroup, idx: number) => {
+            console.log("HERE", val.highlights);
+            return (
+              <SearchEntry
+                key={idx}
+                type="page"
+                highlight={val.highlights[0]}
+                href={val.highlights[0].href}
+              />
+            );
           })
         ) : (
           <Title text="no page matches" />
@@ -35,9 +43,16 @@ const Results: React.FC<ResultsProps> = ({ highlightData, pageData }) => {
       </Stack>
       <Title text="highlights"></Title>
       <Stack overflow={"scroll"} borderRadius={"4px"} padding={4}>
-        {pageData && pageData.length > 0 ? (
-          pageData.map((val: any, idx: number) => {
-            return <SearchEntry type="highlight" highlight={val}></SearchEntry>;
+        {highlightData && highlightData.length > 0 ? (
+          highlightData.map((val: Highlight, idx: number) => {
+            return (
+              <SearchEntry
+                key={idx}
+                type="highlight"
+                highlight={val}
+                href={val.href}
+              />
+            );
           })
         ) : (
           <Title text="no highlight" />

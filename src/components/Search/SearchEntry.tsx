@@ -1,13 +1,14 @@
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Link, Text } from "@chakra-ui/react";
 import React from "react";
 import { Highlight } from "../../types/types";
 
 interface SearchEntryProps {
   type: "highlight" | "page";
   highlight: Highlight;
+  href: string;
 }
 
-const SearchEntry: React.FC<SearchEntryProps> = ({ type, highlight }) => {
+const SearchEntry: React.FC<SearchEntryProps> = ({ type, highlight, href }) => {
   return (
     <Box
       bgColor={"white"}
@@ -20,7 +21,9 @@ const SearchEntry: React.FC<SearchEntryProps> = ({ type, highlight }) => {
       cursor={"pointer"}
     >
       <Text padding={2} my={"auto"}>
-        {type === "highlight" ? highlight.string : highlight.href}
+        <a href={href} target="_blank">
+          {type === "highlight" ? highlight.string : highlight.href}
+        </a>
       </Text>
     </Box>
   );
