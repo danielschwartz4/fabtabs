@@ -62,7 +62,7 @@ const Popup: React.FC<PopupProps> = ({ localData }) => {
         fontFamily={"Molengo"}
         overflow={"hidden"}
       >
-        <Search data={data}></Search>
+        <Search currentUrl={currentUrl} data={data} />
         {currentTitle ? (
           <Box>
             <Box padding={4}>

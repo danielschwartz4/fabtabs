@@ -98,8 +98,6 @@ export async function sendMessageInCurrentTab(
   message: any,
   callback?: ((response: any) => void) | undefined
 ) {
-  console.log("HEHEHEHER");
-  console.log(message);
   const tab = await getCurrentTab();
   if (!tab.id) return;
   return sendMessageInTab(tab.id, message, callback);

@@ -9,12 +9,14 @@ interface ResultsProps {
   searchVal: string;
   highlightData: Highlight[] | undefined;
   titleData: PageGroup[] | undefined;
+  currentUrl: string | undefined;
 }
 
 const Results: React.FC<ResultsProps> = ({
   searchVal,
   highlightData,
   titleData,
+  currentUrl,
 }) => {
   console.log("titleData", titleData);
   console.log("pageData");
@@ -37,6 +39,7 @@ const Results: React.FC<ResultsProps> = ({
                 href={val.highlights[0].href}
                 text={val.title}
                 searchVal={searchVal}
+                currentUrl={currentUrl}
               />
             );
           })
@@ -54,6 +57,7 @@ const Results: React.FC<ResultsProps> = ({
                 href={val.href}
                 text={val.string}
                 searchVal={searchVal}
+                currentUrl={currentUrl}
               />
             );
           })

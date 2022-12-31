@@ -9,9 +9,10 @@ import SearchBar from "./SearchBar";
 
 interface SearchProps {
   data: DataType | undefined;
+  currentUrl?: string | undefined;
 }
 
-const Search: React.FC<SearchProps> = ({ data }) => {
+const Search: React.FC<SearchProps> = ({ data, currentUrl }) => {
   const [searchVal, setSearchVal] = useState<string>("");
   const [highlightData, setHighlightData] = useState<Highlight[]>();
   const [titleData, setTitleData] = useState<PageGroup[]>();
@@ -58,6 +59,7 @@ const Search: React.FC<SearchProps> = ({ data }) => {
                   searchVal={searchVal}
                   highlightData={highlightData}
                   titleData={titleData}
+                  currentUrl={currentUrl}
                 />
               ) : null}
             </Box>
