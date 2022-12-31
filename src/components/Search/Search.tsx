@@ -1,6 +1,7 @@
 import { Box } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { DataType } from "../../types/types";
+import { JsonFilter } from "../../utils/parseJson";
 import Results from "./Results";
 import SearchBar from "./SearchBar";
 
@@ -14,12 +15,17 @@ const Search: React.FC<SearchProps> = ({ data }) => {
 
   const regex = new RegExp(`.*${searchVal}.*`, "i");
 
+  const filter = {
+    string: regex,
+  };
+
   useEffect(() => {
     let filtered: any;
     if (data) {
-      console.log("data", data);
-      console.log("values", Object.values(data));
       filtered = Object.entries(data).filter(([key, val]) => regex.test(key));
+      const result = JsonFilter(data, filter);
+      const elements = result.all();
+      console.log("elements", elements);
     }
     setFiltered(filtered);
   }, [searchVal]);
