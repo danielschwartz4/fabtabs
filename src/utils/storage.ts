@@ -57,9 +57,15 @@ export async function loadAll(
   //     result.tabs[alternativeUrl]["highlights"] || []
   //   );
   // }
+  console.log(result);
+
+  if (!result.tabs[url]) {
+    return;
+  }
+
   alternativeUrlIndexOffset = highlights.length;
 
-  highlights = highlights.concat(result.tabs[url]["highlights"] || []);
+  highlights = highlights.concat(result.tabs[url]["highlights"]);
 
   if (!highlights) return;
 

@@ -28,7 +28,6 @@ const SearchEntry: React.FC<SearchEntryProps> = ({
   console.log(currentUrl == href?.substring(href.indexOf("//") + 2));
 
   return (
-    // !! Make entire box clickable
     <Box
       bgColor={"white"}
       borderRadius={"4px"}

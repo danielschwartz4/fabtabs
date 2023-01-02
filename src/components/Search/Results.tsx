@@ -1,7 +1,6 @@
 import { Box, Stack } from "@chakra-ui/react";
 import React from "react";
-import { DataType, Highlight, PageGroup } from "../../types/types";
-import Entry from "../Entry";
+import { Highlight, PageGroup } from "../../types/types";
 import Title from "../Title";
 import SearchEntry from "./SearchEntry";
 
@@ -29,7 +28,7 @@ const Results: React.FC<ResultsProps> = ({
       padding={4}
       bgColor="#F3F2F9"
     >
-      <Title text="pages"></Title>
+      <Title text="pages" />
       <Stack overflow={"scroll"} borderRadius={"4px"} padding={4}>
         {titleData && titleData.length > 0 ? (
           titleData.map((val: PageGroup, idx: number) => {

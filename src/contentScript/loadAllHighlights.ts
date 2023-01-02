@@ -7,14 +7,11 @@ export function loadAllHighlights() {
       // window.location.pathname
     );
   }
-  console.log("A");
 
   if (document.readyState === "loading") {
-    console.log("B");
     document.removeEventListener("DOMContentLoaded", loadAllHighlightsOnPage); // Prevent duplicates
     document.addEventListener("DOMContentLoaded", loadAllHighlightsOnPage);
   } else {
-    console.log("C");
     // Run immediately if the page is already loaded
     loadAllHighlightsOnPage();
   }

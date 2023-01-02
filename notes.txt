@@ -19,21 +19,15 @@ data: {
 
 
 TODO now
-- search
-- bold search
+- Show highlight stopped working
+- delete tabs
 - click to popup notes?
-- scrolling doesn't work on for highlights
-- add search for url not only title
-
 
 TODO
 - popup for deletion
 - no hover, click to view
 - Organize
-- search bar
 - Style
-- Better highlights
-- delete tabs
 - allow user to write notes
 - Highlight everything
 - highlights on a page number circle

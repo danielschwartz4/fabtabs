@@ -109,7 +109,7 @@ chrome.storage.local.get(function (data) {
         <Popup localData={data.tabs} />
       ) : (
         <Box h={"200px"} w={"400px"}>
-          Nothing Highlighted Yet :(
+          <Title text="Nothing Highlighted Yet :(" />
         </Box>
       )}
     </React.StrictMode>,
