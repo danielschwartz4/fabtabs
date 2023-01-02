@@ -71,20 +71,20 @@ export async function getCurrentTab() {
   return tab;
 }
 
-export async function executeInTab(tabId: any, { file, func, args }: any) {
-  const executions = await chrome.scripting.executeScript({
-    target: { tabId, allFrames: true },
-    ...(file && { files: [file] }),
-    func,
-    args,
-  });
+// export async function executeInTab(tabId: any, { file, func, args }: any) {
+//   const executions = await chrome.scripting.executeScript({
+//     target: { tabId, allFrames: true },
+//     ...(file && { files: [file] }),
+//     func,
+//     args,
+//   });
 
-  if (executions.length == 1) {
-    return executions[0].result;
-  }
-  // If there are many frames, concatenate the results
-  return executions.flatMap((execution) => execution.result);
-}
+//   if (executions.length == 1) {
+//     return executions[0].result;
+//   }
+//   // If there are many frames, concatenate the results
+//   return executions.flatMap((execution) => execution.result);
+// }
 
 async function sendMessageInTab(
   tabId: number,
@@ -103,7 +103,7 @@ export async function sendMessageInCurrentTab(
   return sendMessageInTab(tab.id, message, callback);
 }
 
-export async function executeInCurrentTab(opts: any) {
-  const tab = await getCurrentTab();
-  return executeInTab(tab.id, opts);
-}
+// export async function executeInCurrentTab(opts: any) {
+//   const tab = await getCurrentTab();
+//   return executeInTab(tab.id, opts);
+// }

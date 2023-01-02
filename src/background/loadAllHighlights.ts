@@ -1,17 +1,16 @@
 import { loadAll } from "../utils/storage";
-import { executeInTab } from "../utils/utils";
 
 export function initializeTabEventListeners() {
   // If the URL changes, try again to highlight
   // This is done to support javascript Single-page applications
   // which often change the URL without reloading the page
-  chrome.tabs.onUpdated.addListener((tabId, changeInfo, _tab) => {
-    setTimeout(() => {}, 1000);
-    if (changeInfo.url) {
-      console.log("inini");
-      executeInTab(tabId, { func: loadAll });
-    }
-  });
+  // chrome.tabs.onUpdated.addListener((tabId, changeInfo, _tab) => {
+  //   setTimeout(() => {}, 1000);
+  //   if (changeInfo.url) {
+  //     console.log("inini");
+  //     executeInTab(tabId, { func: loadAll });
+  //   }
+  // });
 }
 
 // function loadPageHighlights(tabId: string) {

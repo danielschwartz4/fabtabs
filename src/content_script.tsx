@@ -7,6 +7,7 @@ window.addEventListener("load", function () {
 });
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+  console.log("request", request);
   switch (request.action) {
     case "create-highlight":
       console.log("in create highlight");
