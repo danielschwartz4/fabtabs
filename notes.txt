@@ -19,7 +19,6 @@ data: {
 
 
 TODO now
-- Show highlight stopped working
 - delete tabs
 - click to popup notes?
 
@@ -27,11 +26,13 @@ TODO
 - popup for deletion
 - no hover, click to view
 - Organize
-- Style
 - allow user to write notes
 - Highlight everything
 - highlights on a page number circle
 - space bar for highlights
 - ChatGPT
+
+Hacky things:
+- setting timeout for event listener in content script
 
 Delete storage: chrome.storage.local.clear()

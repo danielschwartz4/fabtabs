@@ -1,4 +1,4 @@
-import { Box, Text } from "@chakra-ui/react";
+import { Flex, Text } from "@chakra-ui/react";
 import React from "react";
 
 interface EntryProps {
@@ -18,7 +18,7 @@ const Entry: React.FC<EntryProps> = ({ text, uuid, canClick }) => {
   };
 
   return (
-    <Box
+    <Flex
       bgColor={"white"}
       borderRadius={"4px"}
       fontSize={"14px"}
@@ -38,7 +38,7 @@ const Entry: React.FC<EntryProps> = ({ text, uuid, canClick }) => {
       >
         {text}
       </Text>
-    </Box>
+    </Flex>
   );
 };
 

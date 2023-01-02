@@ -1,5 +1,5 @@
-import { Box, Text, Stack } from "@chakra-ui/react";
-import React from "react";
+import { Box, Button, Stack } from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
 import "../../styles/folder.css";
 import { DataType } from "../../types/types";
 import Title from "../Title";
@@ -11,13 +11,19 @@ interface FolderStructureProps {
 }
 
 const FolderStructure: React.FC<FolderStructureProps> = ({ data, setData }) => {
+  const [update, setUpdate] = useState<boolean>(false);
   const handleFolderDelete = async (url: string) => {
+    console.log(data);
+    url = url?.substring(url.indexOf("//") + 2);
+    setUpdate(!update);
     delete data[url];
-    chrome.storage.local.set({ data: data });
-    // !! This doesn't work
-    setData(data);
-    return;
+
+    chrome.storage.local.set({ tabs: data });
   };
+
+  useEffect(() => {
+    setData(data);
+  }, []);
 
   return (
     <Box>

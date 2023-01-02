@@ -37,6 +37,7 @@ export const displayPopoverHighlights = (highlights: Highlight[]) => {
   for (var h of highlights) {
     const newEl = document.createElement("div");
     newEl.style.margin = "8px";
+    newEl.style.borderRadius = "4px";
     newEl.classList.add("highlight");
     newEl.innerText = " - " + h.string;
     newEl.addEventListener("click", () => {

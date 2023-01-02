@@ -1,8 +1,8 @@
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
 import "../../styles/folder.css";
 import { Highlight } from "../../types/types";
-import { displayPopoverHighlights } from "../../utils/utils";
+import { GrClose } from "react-icons/gr";
 
 interface FolderProps {
   url: string;
@@ -16,11 +16,7 @@ interface FolderProps {
 const Folder: React.FC<FolderProps> = ({ url, data, handleFolderDelete }) => {
   const [shadow, setShadow] = useState<boolean>(false);
   const handleMouseOver = () => {
-    setShadow(true);
-
-    //// Delete
-    // let tmp = `<button id="myButton">delete</button> </br> </br>`;
-
+    // setShadow(true);
     //// Popover
     // displayPopoverHighlights(data.highlights);
     // const ele = document.getElementById("popover");
@@ -37,33 +33,43 @@ const Folder: React.FC<FolderProps> = ({ url, data, handleFolderDelete }) => {
   };
 
   return (
-    <Box className="popover__wrapper">
+    // <Box className="popover__wrapper">
+    // <Flex>
+
+    <Flex
+      style={
+        shadow
+          ? {
+              boxShadow:
+                "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
+            }
+          : {}
+      }
+      bgColor={"white"}
+      borderRadius={"4px"}
+      onMouseOver={handleMouseOver}
+      onMouseLeave={handleMouseLeave}
+      fontSize={"14px"}
+      whiteSpace={"nowrap"}
+      textOverflow={"ellipsis"}
+      padding={"8px"}
+      textColor={"#170F47"}
+      justify={"space-between"}
+      alignItems={"center"}
+    >
       <a href={url} target="_blank">
-        <Box
-          style={
-            shadow
-              ? {
-                  boxShadow:
-                    "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
-                }
-              : {}
-          }
-          bgColor={"white"}
-          borderRadius={"4px"}
-          onMouseOver={handleMouseOver}
-          onMouseLeave={handleMouseLeave}
-          fontSize={"14px"}
-          whiteSpace={"nowrap"}
-          textOverflow={"ellipsis"}
-          padding={"8px"}
-          textColor={"#170F47"}
-        >
-          <Text padding={2} my={"auto"}>
-            {data.title}
-          </Text>
-        </Box>
+        <Text padding={2} my={"auto"}>
+          {data.title}
+        </Text>
       </a>
-    </Box>
+      <GrClose
+        onClick={() => handleFolderDelete(url)}
+        color="grey"
+        cursor={"pointer"}
+      />
+    </Flex>
+
+    // </Box>
   );
 };
 

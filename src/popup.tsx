@@ -34,23 +34,6 @@ const Popup: React.FC<PopupProps> = ({ localData }) => {
     setData(localData);
   }, []);
 
-  useEffect(() => {
-    if (!currentUrl || !data || !data[currentUrl]) {
-      return;
-    }
-
-    // displayMainHighlights(data[currentUrl]["highlights"]);
-  }, [currentUrl, data]);
-
-  chrome.storage.onChanged.addListener((changes, namespace) => {
-    for (let [key, { oldValue, newValue }] of Object.entries(changes)) {
-      console.log(
-        `Storage key "${key}" in namespace "${namespace}" changed.`,
-        `Old value was "${oldValue}", new value is "${newValue}".`
-      );
-    }
-  });
-
   return (
     <Box padding={".5em"} margin={"-8px"}>
       <Stack
