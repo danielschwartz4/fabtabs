@@ -31,7 +31,7 @@ const HighlightList: React.FC<HighlightListProps> = ({
       {highlightListUrl && data[highlightListUrl] ? (
         <Stack
           overflow={"scroll"}
-          maxH={"300px"}
+          maxH={"200px"}
           borderRadius={"4px"}
           padding={4}
         >
