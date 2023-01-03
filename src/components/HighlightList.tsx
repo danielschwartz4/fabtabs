@@ -1,4 +1,4 @@
-import { Box, Stack } from "@chakra-ui/react";
+import { Stack } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { DataType } from "../types/types";
 import Entry from "./Entry";
@@ -41,6 +41,8 @@ const HighlightList: React.FC<HighlightListProps> = ({
               <Entry
                 key={i}
                 text={h.string}
+                entryUrl={h.href}
+                currentUrl={url}
                 uuid={h.uuid}
                 canClick
                 handleFolderDelete={handleFolderDelete}
@@ -57,6 +59,8 @@ const HighlightList: React.FC<HighlightListProps> = ({
                 key={i}
                 text={h.string}
                 uuid={h.uuid}
+                entryUrl={h.href}
+                currentUrl={url}
                 canClick
                 handleFolderDelete={handleFolderDelete}
               />

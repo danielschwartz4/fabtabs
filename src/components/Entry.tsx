@@ -1,9 +1,12 @@
 import { Flex, Text } from "@chakra-ui/react";
 import React from "react";
 import { GrClose } from "react-icons/gr";
+import { trimUrl } from "../utils/utils";
 
 interface EntryProps {
   text: string;
+  entryUrl: string;
+  currentUrl: string;
   uuid?: string;
   canClick?: boolean;
   handleFolderDelete?: (url: string) => void;
@@ -11,6 +14,8 @@ interface EntryProps {
 
 const Entry: React.FC<EntryProps> = ({
   text,
+  entryUrl,
+  currentUrl,
   uuid,
   canClick,
   handleFolderDelete,
@@ -21,6 +26,7 @@ const Entry: React.FC<EntryProps> = ({
       arguments: uuid,
     });
   };
+  console.log("IN ENTRY");
 
   return (
     <Flex
@@ -37,7 +43,8 @@ const Entry: React.FC<EntryProps> = ({
     >
       <Text
         onClick={() => {
-          if (canClick && uuid) showHighlight(uuid);
+          if (trimUrl(entryUrl) === currentUrl && canClick && uuid)
+            showHighlight(uuid);
         }}
         padding={2}
         my={"auto"}
@@ -46,7 +53,13 @@ const Entry: React.FC<EntryProps> = ({
         textOverflow={"ellipsis"}
         isTruncated
       >
-        {text}
+        {trimUrl(entryUrl) !== currentUrl ? (
+          <a href={entryUrl + "?uuid=" + uuid} target="_blank">
+            {text}
+          </a>
+        ) : (
+          text
+        )}
       </Text>
       {handleFolderDelete && uuid ? (
         <GrClose

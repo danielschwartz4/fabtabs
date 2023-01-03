@@ -72,7 +72,11 @@ const Popup: React.FC<PopupProps> = ({ localData }) => {
               alignItems={"center"}
             >
               <Image ml={"12px"} boxSize={"18px"} src={currentFavicon} alt="" />
-              <Entry text={currentTitle} />
+              <Entry
+                entryUrl={currentUrl}
+                currentUrl={currentUrl}
+                text={currentTitle}
+              />
             </Flex>
           </Box>
         ) : null}

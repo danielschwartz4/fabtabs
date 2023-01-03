@@ -1,8 +1,7 @@
 import { contextMenus } from "./background/contextMenus";
 import { initializeKeyboardShortcutEventListeners } from "./background/keyboardShortcuts";
-import { initializeTabEventListeners } from "./background/tabEvents";
 import { initializeMessageEventListeners } from "./background/messageEvents";
-import { getCurrentTab, sendMessageInCurrentTab } from "./utils/utils";
+import { initializeTabEventListeners } from "./background/tabEvents";
 
 function execute() {
   console.log("executing");
