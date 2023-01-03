@@ -1,41 +1,47 @@
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, Link, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
 import "../../styles/folder.css";
 import { Highlight } from "../../types/types";
 import { GrClose } from "react-icons/gr";
+import { MdOutlineOpenInNew } from "react-icons/md";
 
 interface FolderProps {
   url: string;
   data: {
     highlights: Highlight[];
-    title: string;
+    title: string | undefined;
   };
   handleFolderDelete: (url: string) => void;
+  setHighlightListUrl: React.Dispatch<React.SetStateAction<string | undefined>>;
+  highlightListUrl: string | undefined;
 }
 
-const Folder: React.FC<FolderProps> = ({ url, data, handleFolderDelete }) => {
+const Folder: React.FC<FolderProps> = ({
+  url,
+  data,
+  handleFolderDelete,
+  setHighlightListUrl,
+  highlightListUrl,
+}) => {
   const [shadow, setShadow] = useState<boolean>(false);
   const handleMouseOver = () => {
-    // setShadow(true);
-    //// Popover
-    // displayPopoverHighlights(data.highlights);
-    // const ele = document.getElementById("popover");
-    // if (ele) {
-    //   ele.innerHTML = tmp;
-    //   ele.style.padding = "8px";
-    //   document
-    //     .getElementById("myButton")
-    //     ?.addEventListener("click", () => handleFolderDelete(url));
-    // }
+    setShadow(true);
   };
   const handleMouseLeave = () => {
     setShadow(false);
   };
 
-  return (
-    // <Box className="popover__wrapper">
-    // <Flex>
+  const handleClick = () => {
+    url = url?.substring(url.indexOf("//") + 2);
+    if (url.includes("//")) {
+      url = url.substring(0, url.indexOf("#"));
+    }
+    console.log(highlightListUrl);
+    setHighlightListUrl(url);
+    console.log(highlightListUrl);
+  };
 
+  return (
     <Flex
       style={
         shadow
@@ -49,6 +55,7 @@ const Folder: React.FC<FolderProps> = ({ url, data, handleFolderDelete }) => {
       borderRadius={"4px"}
       onMouseOver={handleMouseOver}
       onMouseLeave={handleMouseLeave}
+      onClick={handleClick}
       fontSize={"14px"}
       whiteSpace={"nowrap"}
       textOverflow={"ellipsis"}
@@ -57,19 +64,26 @@ const Folder: React.FC<FolderProps> = ({ url, data, handleFolderDelete }) => {
       justify={"space-between"}
       alignItems={"center"}
     >
-      <a href={url} target="_blank">
-        <Text padding={2} my={"auto"}>
-          {data.title}
-        </Text>
-      </a>
+      <Text
+        padding={2}
+        my={"auto"}
+        width={"260px"}
+        overflow={"hidden"}
+        textOverflow={"ellipsis"}
+        cursor={"pointer"}
+      >
+        {data.title}
+      </Text>
+      <Link mt={"3.5px"} href={url} target="_blank">
+        <MdOutlineOpenInNew color="grey" cursor={"pointer"} />
+      </Link>
       <GrClose
         onClick={() => handleFolderDelete(url)}
         color="grey"
+        opacity={"50%"}
         cursor={"pointer"}
       />
     </Flex>
-
-    // </Box>
   );
 };
 

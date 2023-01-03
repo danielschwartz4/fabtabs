@@ -31,7 +31,6 @@ const Search: React.FC<SearchProps> = ({ data, currentUrl }) => {
   const titleFilter = {
     title: regex,
   };
-  console.log("data", data);
 
   useEffect(() => {
     let hd: Highlight[] | undefined;

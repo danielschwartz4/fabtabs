@@ -19,8 +19,7 @@ data: {
 
 
 TODO now
-- delete tabs
-- click to popup notes?
+- click to popup notes
 
 TODO
 - popup for deletion

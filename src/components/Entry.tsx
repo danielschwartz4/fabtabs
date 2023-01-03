@@ -1,16 +1,21 @@
 import { Flex, Text } from "@chakra-ui/react";
 import React from "react";
+import { GrClose } from "react-icons/gr";
 
 interface EntryProps {
   text: string;
   uuid?: string;
   canClick?: boolean;
+  handleFolderDelete?: (url: string) => void;
 }
 
-const Entry: React.FC<EntryProps> = ({ text, uuid, canClick }) => {
+const Entry: React.FC<EntryProps> = ({
+  text,
+  uuid,
+  canClick,
+  handleFolderDelete,
+}) => {
   const showHighlight = (uuid: string) => {
-    console.log("HERE");
-    console.log(uuid);
     chrome.runtime.sendMessage({
       action: "show-highlight",
       arguments: uuid,
@@ -27,6 +32,8 @@ const Entry: React.FC<EntryProps> = ({ text, uuid, canClick }) => {
       padding={"8px"}
       textColor={"#170F47"}
       cursor={"pointer"}
+      alignItems={"center"}
+      justify={"space-between"}
     >
       <Text
         onClick={() => {
@@ -34,10 +41,21 @@ const Entry: React.FC<EntryProps> = ({ text, uuid, canClick }) => {
         }}
         padding={2}
         my={"auto"}
-        isTruncated
+        width={"260px"}
+        overflow={"hidden"}
+        textOverflow={"ellipsis"}
       >
         {text}
       </Text>
+      {handleFolderDelete && uuid ? (
+        <GrClose
+          onClick={() => {
+            if (handleFolderDelete && uuid) handleFolderDelete(uuid);
+          }}
+          color="grey"
+          cursor={"pointer"}
+        />
+      ) : null}
     </Flex>
   );
 };

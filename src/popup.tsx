@@ -19,6 +19,8 @@ const Popup: React.FC<PopupProps> = ({ localData }) => {
   const [data, setData] = useState<DataType>();
   const [currentUrl, setCurrentUrl] = useState<string>();
   const [currentTitle, setCurrentTitle] = useState<string>();
+  const [highlightListUrl, setHighlightListUrl] = useState<string>();
+  console.log(highlightListUrl);
 
   useEffect(() => {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
@@ -33,6 +35,16 @@ const Popup: React.FC<PopupProps> = ({ localData }) => {
     });
     setData(localData);
   }, []);
+
+  useEffect(() => {
+    console.log("HERE");
+    if (data && highlightListUrl) {
+      console.log("TEST");
+      console.log(data);
+      console.log(highlightListUrl);
+      console.log(data[highlightListUrl]);
+    }
+  }, [highlightListUrl]);
 
   return (
     <Box padding={".5em"} margin={"-8px"}>
@@ -56,7 +68,11 @@ const Popup: React.FC<PopupProps> = ({ localData }) => {
         ) : null}
         {data ? (
           <Box border={"2px"} borderColor={"black"}>
-            <FolderStructure setData={setData} data={data} />
+            <FolderStructure
+              highlightListUrl={highlightListUrl}
+              setHighlightListUrl={setHighlightListUrl}
+              data={data}
+            />
           </Box>
         ) : (
           <Box padding={4}>
@@ -67,11 +83,11 @@ const Popup: React.FC<PopupProps> = ({ localData }) => {
         <Box>
           {currentUrl && data && data[currentUrl] ? (
             <Box h={"200px"} overflow={"scroll"}>
-              {/* <b>{data[currentUrl].title}</b> Highlights
-              <br />
-              <br />
-              <Box maxH={"200px"} overflow={"scroll"} id={"highlight-list"} /> */}
-              <HighlightList highlights={data[currentUrl]["highlights"]} />
+              <HighlightList
+                data={data}
+                url={currentUrl}
+                highlightListUrl={highlightListUrl}
+              />
             </Box>
           ) : (
             <Title text="You haven't made any highlights on this page :'(" />
