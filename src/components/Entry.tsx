@@ -44,6 +44,7 @@ const Entry: React.FC<EntryProps> = ({
         width={"260px"}
         overflow={"hidden"}
         textOverflow={"ellipsis"}
+        isTruncated
       >
         {text}
       </Text>

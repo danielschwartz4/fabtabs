@@ -49,12 +49,20 @@ const Popup: React.FC<PopupProps> = ({ localData }) => {
         overflow={"hidden"}
       >
         <Search currentUrl={currentUrl} data={data} />
-        {currentTitle ? (
+        {currentTitle && currentUrl ? (
           <Box onClick={handleClick}>
             <Box padding={4}>
               <Title text={"current page"} />
             </Box>
-            <Entry text={currentTitle} />
+            <Box
+              outline={highlightListUrl === trimUrl(currentUrl) ? "solid" : ""}
+              outlineColor={
+                highlightListUrl === trimUrl(currentUrl) ? "#C1B9F1" : ""
+              }
+              borderRadius={"4px"}
+            >
+              <Entry text={currentTitle} />
+            </Box>
           </Box>
         ) : null}
         {data ? (

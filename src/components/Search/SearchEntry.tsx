@@ -1,7 +1,6 @@
 import { Box, Text } from "@chakra-ui/react";
 import React from "react";
 import { centerSearchWord } from "../../utils/searchUtiils";
-import { getCurrentTab } from "../../utils/utils";
 
 interface SearchEntryProps {
   href: string;
@@ -31,14 +30,12 @@ const SearchEntry: React.FC<SearchEntryProps> = ({
       bgColor={"white"}
       borderRadius={"4px"}
       fontSize={"14px"}
-      whiteSpace={"nowrap"}
-      textOverflow={"ellipsis"}
       padding={"8px"}
       textColor={"#170F47"}
       cursor={"pointer"}
     >
       <a href={href} target="_blank">
-        <Text padding={2} my={"auto"}>
+        <Text padding={2} my={"auto"} isTruncated>
           {tmp[0]}{" "}
           <span style={{ color: "red" }}>{searchVal.toLocaleLowerCase()}</span>
           {tmp[1]}
@@ -66,7 +63,7 @@ const SearchEntry: React.FC<SearchEntryProps> = ({
         </Text>
       )} */}
 
-        <Text color={"#8C8C8C"} mb={"4px"}>
+        <Text isTruncated color={"#8C8C8C"} mb={"4px"}>
           {href}
         </Text>
       </a>

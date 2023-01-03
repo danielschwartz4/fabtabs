@@ -1,5 +1,5 @@
 import { Box, Stack } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "../../styles/folder.css";
 import { DataType } from "../../types/types";
 import { trimUrl } from "../../utils/utils";
