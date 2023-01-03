@@ -29,7 +29,12 @@ const HighlightList: React.FC<HighlightListProps> = ({
   return (
     <>
       {highlightListUrl && data[highlightListUrl] ? (
-        <Stack overflow={"scroll"} borderRadius={"4px"} padding={4}>
+        <Stack
+          overflow={"scroll"}
+          maxH={"300px"}
+          borderRadius={"4px"}
+          padding={4}
+        >
           <Title text={"highlights on selected page"} />
           {data[highlightListUrl]["highlights"].map(function (h, i) {
             return (

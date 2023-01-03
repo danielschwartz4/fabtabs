@@ -47,7 +47,7 @@ const Popup: React.FC<PopupProps> = ({ localData }) => {
       <Stack
         h={"95%"}
         w={"336px"}
-        m={"-8px"}
+        // m={"-8px"}
         p={"1em"}
         bgColor={"#F3F2F9"}
         fontFamily={"Molengo"}
@@ -92,7 +92,7 @@ const Popup: React.FC<PopupProps> = ({ localData }) => {
         <Popover />
         <Box>
           {currentUrl && data ? (
-            <Box h={"200px"} overflow={"scroll"}>
+            <Box overflow={"scroll"}>
               <HighlightList
                 data={data}
                 url={currentUrl}

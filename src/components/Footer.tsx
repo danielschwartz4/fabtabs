@@ -7,7 +7,7 @@ const Footer: React.FC<FooterProps> = ({}) => {
   return (
     <Flex
       padding={"4px"}
-      bgColor={"white"}
+      // bgColor={"white"}
       justify={"space-between"}
       textColor={"#8C8C8C"}
     >
