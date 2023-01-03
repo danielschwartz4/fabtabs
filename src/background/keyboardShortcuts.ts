@@ -13,7 +13,7 @@ export function initializeKeyboardShortcutEventListeners() {
           {
             action: "create-highlight",
             command: "append",
-            arguments: tab.title,
+            arguments: { title: tab.title, favicon: tab.favIconUrl },
           },
           function (response) {
             console.log("response", response);

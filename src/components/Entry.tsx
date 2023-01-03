@@ -54,6 +54,7 @@ const Entry: React.FC<EntryProps> = ({
             if (handleFolderDelete && uuid) handleFolderDelete(uuid);
           }}
           color="grey"
+          opacity={"50%"}
           cursor={"pointer"}
         />
       ) : null}

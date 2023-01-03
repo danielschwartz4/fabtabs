@@ -19,7 +19,7 @@ data: {
 
 
 TODO now
-- click to highlighted notes
+- click into highlighted notes
 
 TODO
 - popup for deletion

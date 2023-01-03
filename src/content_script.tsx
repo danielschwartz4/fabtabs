@@ -10,7 +10,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   switch (request.action) {
     case "create-highlight":
       console.log("in create highlight");
-      createHighlight(request.arguments);
+      createHighlight(request.arguments["title"], request.arguments["favicon"]);
       break;
     case "show-highlight":
       setTimeout(() => {}, 1000);

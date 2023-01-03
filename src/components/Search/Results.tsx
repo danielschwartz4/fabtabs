@@ -38,7 +38,7 @@ const Results: React.FC<ResultsProps> = ({
                 href={val.highlights[0].href}
                 text={val.title}
                 searchVal={searchVal}
-                currentUrl={currentUrl}
+                favicon={val.favicon}
               />
             );
           })
@@ -56,7 +56,6 @@ const Results: React.FC<ResultsProps> = ({
                 href={val.href}
                 text={val.string}
                 searchVal={searchVal}
-                currentUrl={currentUrl}
               />
             );
           })

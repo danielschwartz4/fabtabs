@@ -1,4 +1,4 @@
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Flex, Text, Image } from "@chakra-ui/react";
 import React from "react";
 import { centerSearchWord } from "../../utils/searchUtiils";
 
@@ -6,14 +6,14 @@ interface SearchEntryProps {
   href: string;
   text: string;
   searchVal: string;
-  currentUrl: string | undefined;
+  favicon?: string;
 }
 
 const SearchEntry: React.FC<SearchEntryProps> = ({
   href,
   text,
   searchVal,
-  currentUrl,
+  favicon,
 }) => {
   const processedText = centerSearchWord(text, searchVal);
   const tmp = processedText.split(new RegExp(`${searchVal}(.*)`, "i"));
@@ -35,12 +35,16 @@ const SearchEntry: React.FC<SearchEntryProps> = ({
       cursor={"pointer"}
     >
       <a href={href} target="_blank">
-        <Text padding={2} my={"auto"} isTruncated>
-          {tmp[0]}{" "}
-          <span style={{ color: "red" }}>{searchVal.toLocaleLowerCase()}</span>
-          {tmp[1]}
-        </Text>
-
+        <Flex gap={"8px"}>
+          {favicon ? <Image boxSize={"18px"} src={favicon} alt="" /> : null}
+          <Text padding={2} my={"auto"} isTruncated>
+            {tmp[0]}{" "}
+            <span style={{ color: "red" }}>
+              {searchVal.toLocaleLowerCase()}
+            </span>
+            {tmp[1]}
+          </Text>
+        </Flex>
         {/* {currentUrl != href?.substring(href.indexOf("//") + 2) ? (
         <Text padding={2} my={"auto"}>
           <a href={href} target="_blank">

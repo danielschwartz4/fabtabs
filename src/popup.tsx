@@ -28,6 +28,7 @@ const Popup: React.FC<PopupProps> = ({ localData }) => {
       // Incase it's a "link to highlight" url
       if (url) url = trimUrl(url);
       setCurrentUrl(url);
+      setHighlightListUrl(url);
       setCurrentTitle(tabs[0].title);
     });
     setData(localData);
@@ -37,6 +38,7 @@ const Popup: React.FC<PopupProps> = ({ localData }) => {
     setHighlightListUrl(currentUrl);
   };
 
+  console.log(data);
   return (
     <Box padding={".5em"} margin={"-8px"}>
       <Stack

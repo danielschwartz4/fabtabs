@@ -3,6 +3,7 @@ import { highlight } from "./highlight";
 
 export async function createHighlight(
   title: string,
+  favicon: string,
   selection = window.getSelection()
 ) {
   const selectionString = selection?.toString();
@@ -19,8 +20,10 @@ export async function createHighlight(
     container,
     location.hostname + location.pathname,
     location.href,
-    title
+    title,
+    favicon
   );
+  console.log("highlightIndex", highlightIndex);
   highlight(
     selectionString,
     container as Element,

@@ -1,17 +1,14 @@
-import { Flex, Link, Text } from "@chakra-ui/react";
+import { Box, Flex, Link, Text, Image } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { GrClose } from "react-icons/gr";
 import { MdOutlineOpenInNew } from "react-icons/md";
 import "../../styles/folder.css";
-import { Highlight } from "../../types/types";
+import { Highlight, PageGroup } from "../../types/types";
 import { trimUrl } from "../../utils/utils";
 
 interface FolderProps {
   url: string;
-  data: {
-    highlights: Highlight[];
-    title: string | undefined;
-  };
+  data: PageGroup;
   handleFolderDelete: (url: string) => void;
   setHighlightListUrl: React.Dispatch<React.SetStateAction<string | undefined>>;
   highlightListUrl: string | undefined;
@@ -32,7 +29,6 @@ const Folder: React.FC<FolderProps> = ({
   const handleMouseLeave = () => {
     setShadow(false);
   };
-  console.log(highlightListUrl, url);
 
   const handleClick = () => {
     url = trimUrl(url);
@@ -62,14 +58,22 @@ const Folder: React.FC<FolderProps> = ({
       alignItems={"center"}
       outline={highlightListUrl === trimUrl(url) ? "solid" : ""}
       outlineColor={highlightListUrl === trimUrl(url) ? "#C1B9F1" : ""}
+      gap={"8px"}
     >
+      <Image
+        // w={"18px"}
+        boxSize={"18px"}
+        src={data.favicon}
+        alt=""
+      />
       <Text
         padding={2}
         my={"auto"}
         width={"260px"}
-        overflow={"hidden"}
-        textOverflow={"ellipsis"}
+        // overflow={"hidden"}
+        // textOverflow={"ellipsis"}
         cursor={"pointer"}
+        isTruncated
       >
         {data.title}
       </Text>

@@ -9,6 +9,8 @@ export type NotesType = { [note: string]: NoteType };
 
 export type NoteType = { posUrl: string; comment?: string };
 
+// ! New starts here...
+
 export type DataType = {
   [url: string]: PageGroup;
 };
@@ -16,6 +18,7 @@ export type DataType = {
 export type PageGroup = {
   highlights: Highlight[];
   title: string;
+  favicon: string;
 };
 
 export interface Highlight {

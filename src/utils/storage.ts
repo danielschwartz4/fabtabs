@@ -1,6 +1,7 @@
 import { highlight } from "../contentScript/highlight";
 import { Highlight } from "../types/types";
 import { elementFromQuery, getQuery } from "./storageUtils";
+import { getCurrentTab } from "./utils";
 
 let alternativeUrlIndexOffset = 0; // Number of elements stored in the alternativeUrl Key. Used to map highlight indices to correct key
 
@@ -10,14 +11,17 @@ export async function store(
   url: string,
   href: string,
   title: string,
+  favicon: string,
   color = "yellow",
   textColor = "inherit"
 ): Promise<[number, string]> {
   const { tabs } = await chrome.storage.local.get({ tabs: {} });
 
   if (!tabs[url]) {
-    tabs[url] = { highlights: [], title: title };
+    tabs[url] = { highlights: [], title: title, favicon: favicon };
   }
+  const tab = getCurrentTab();
+  console.log("TAB", tab);
 
   const uuid = crypto.randomUUID();
 
