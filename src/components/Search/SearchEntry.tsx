@@ -7,6 +7,7 @@ interface SearchEntryProps {
   text: string;
   searchVal: string;
   favicon?: string;
+  uuid?: string;
 }
 
 const SearchEntry: React.FC<SearchEntryProps> = ({
@@ -14,6 +15,7 @@ const SearchEntry: React.FC<SearchEntryProps> = ({
   text,
   searchVal,
   favicon,
+  uuid,
 }) => {
   const processedText = centerSearchWord(text, searchVal);
   const tmp = processedText.split(new RegExp(`${searchVal}(.*)`, "i"));
@@ -34,11 +36,11 @@ const SearchEntry: React.FC<SearchEntryProps> = ({
       textColor={"#170F47"}
       cursor={"pointer"}
     >
-      <a href={href} target="_blank">
+      <a href={href + `?uuid=${uuid}`} target="_blank">
         <Flex gap={"8px"}>
           {favicon ? <Image boxSize={"18px"} src={favicon} alt="" /> : null}
           <Text padding={2} my={"auto"} isTruncated>
-            {tmp[0]}{" "}
+            {tmp[0]}
             <span style={{ color: "red" }}>
               {searchVal.toLocaleLowerCase()}
             </span>

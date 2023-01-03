@@ -116,5 +116,19 @@ export const trimUrl = (url: string) => {
   if (url.includes("#")) {
     url = url.substring(0, url.indexOf("#"));
   }
+  if (url.includes("?uuid=")) {
+    url = url.substring(0, url.indexOf("?uuid="));
+  }
+  if (url.includes("uuid=")) {
+    url = url.substring(0, url.indexOf("uuid="));
+  }
   return url;
+};
+
+export const extractUUID = (url: string) => {
+  const uuidRegex =
+    /uuid=([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/;
+  const match = url.match(uuidRegex);
+  const uuid = match ? match[1] : null;
+  return uuid;
 };

@@ -17,19 +17,16 @@ data: {
 	},
 }
 
-
 TODO now
 - click into highlighted notes
 - Highlight everything
 
 TODO
-- popup for deletion
-- no hover, click to view
+- click into highlighted notes
 - Organize
 - allow user to write notes
 - Highlight everything
 - highlights on a page number circle
-- space bar for highlights
 - ChatGPT
 
 Hacky things:

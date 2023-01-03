@@ -20,8 +20,6 @@ export async function store(
   if (!tabs[url]) {
     tabs[url] = { highlights: [], title: title, favicon: favicon };
   }
-  const tab = getCurrentTab();
-  console.log("TAB", tab);
 
   const uuid = crypto.randomUUID();
 

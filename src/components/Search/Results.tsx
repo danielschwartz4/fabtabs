@@ -56,6 +56,7 @@ const Results: React.FC<ResultsProps> = ({
                 href={val.href}
                 text={val.string}
                 searchVal={searchVal}
+                uuid={val.uuid}
               />
             );
           })

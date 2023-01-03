@@ -1,8 +1,9 @@
 import { createHighlight } from "./contentScript/createHighlight";
 import { loadAllHighlights } from "./contentScript/loadAllHighlights";
 import { showHighlight } from "./contentScript/showHighlight";
+import { extractUUID } from "./utils/utils";
 
-window.addEventListener("load", function () {
+window.addEventListener("load", async function () {
   loadAllHighlights();
 });
 
@@ -13,8 +14,13 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
       createHighlight(request.arguments["title"], request.arguments["favicon"]);
       break;
     case "show-highlight":
-      setTimeout(() => {}, 1000);
       showHighlight(request.arguments);
+      break;
+    case "tab-updated":
+      const uuid = extractUUID(location.href);
+      if (uuid) {
+        showHighlight(uuid);
+      }
       break;
   }
 
