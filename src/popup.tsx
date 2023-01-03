@@ -1,4 +1,4 @@
-import { Box, Stack } from "@chakra-ui/react";
+import { Box, Stack, Image, Flex } from "@chakra-ui/react";
 import "@fontsource/molengo";
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
@@ -20,6 +20,7 @@ const Popup: React.FC<PopupProps> = ({ localData }) => {
   const [data, setData] = useState<DataType>();
   const [currentUrl, setCurrentUrl] = useState<string>();
   const [currentTitle, setCurrentTitle] = useState<string>();
+  const [currentFavicon, setCurrentFavicon] = useState<string>();
   const [highlightListUrl, setHighlightListUrl] = useState<string>();
 
   useEffect(() => {
@@ -30,6 +31,7 @@ const Popup: React.FC<PopupProps> = ({ localData }) => {
       setCurrentUrl(url);
       setHighlightListUrl(url);
       setCurrentTitle(tabs[0].title);
+      setCurrentFavicon(tabs[0].favIconUrl);
     });
     setData(localData);
   }, []);
@@ -56,15 +58,21 @@ const Popup: React.FC<PopupProps> = ({ localData }) => {
             <Box padding={4}>
               <Title text={"current page"} />
             </Box>
-            <Box
+            <Flex
               outline={highlightListUrl === trimUrl(currentUrl) ? "solid" : ""}
               outlineColor={
                 highlightListUrl === trimUrl(currentUrl) ? "#C1B9F1" : ""
               }
               borderRadius={"4px"}
+              fontSize={"14px"}
+              textOverflow={"ellipsis"}
+              textColor={"#170F47"}
+              bgColor={"white"}
+              alignItems={"center"}
             >
+              <Image ml={"12px"} boxSize={"18px"} src={currentFavicon} alt="" />
               <Entry text={currentTitle} />
-            </Box>
+            </Flex>
           </Box>
         ) : null}
         {data ? (

@@ -48,7 +48,7 @@ const Search: React.FC<SearchProps> = ({ data, currentUrl }) => {
 
   return (
     <>
-      <SearchBar setSearchVal={setSearchVal}></SearchBar>
+      <SearchBar setSearchVal={setSearchVal} />
       {searchVal ? (
         <Box width={"inherit"}>
           {highlightData || titleData ? (

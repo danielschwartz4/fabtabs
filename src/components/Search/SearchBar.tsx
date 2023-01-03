@@ -9,12 +9,13 @@ const SearchBar: React.FC<SearchBarProps> = ({ setSearchVal }) => {
   const handleChange = (value: string) => {
     setSearchVal(value);
   };
+
   return (
     <Box>
       <Input
         variant="outline"
         onChange={(e) => handleChange(e.target.value)}
-        placeholder="search for a page or highlight"
+        placeholder="  🔍 search for a page or highlight"
         borderRadius={"4px"}
         fontSize={"14px"}
         w={"-webkit-fill-available"}

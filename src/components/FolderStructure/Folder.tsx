@@ -60,18 +60,11 @@ const Folder: React.FC<FolderProps> = ({
       outlineColor={highlightListUrl === trimUrl(url) ? "#C1B9F1" : ""}
       gap={"8px"}
     >
-      <Image
-        // w={"18px"}
-        boxSize={"18px"}
-        src={data.favicon}
-        alt=""
-      />
+      <Image boxSize={"18px"} src={data.favicon} alt="" />
       <Text
         padding={2}
         my={"auto"}
         width={"260px"}
-        // overflow={"hidden"}
-        // textOverflow={"ellipsis"}
         cursor={"pointer"}
         isTruncated
       >
