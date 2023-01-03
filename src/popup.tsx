@@ -10,6 +10,7 @@ import Search from "./components/Search/Search";
 import Title from "./components/Title";
 import "./styles/folder.css";
 import { DataType } from "./types/types";
+import { trimUrl } from "./utils/utils";
 
 interface PopupProps {
   localData: DataType;
@@ -25,10 +26,7 @@ const Popup: React.FC<PopupProps> = ({ localData }) => {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
       let url = tabs[0].url;
       // Incase it's a "link to highlight" url
-      if (url?.includes("#")) {
-        url = url.substring(0, url.indexOf("#"));
-      }
-      url = url?.substring(url.indexOf("//") + 2);
+      if (url) url = trimUrl(url);
       setCurrentUrl(url);
       setCurrentTitle(tabs[0].title);
     });
@@ -36,12 +34,7 @@ const Popup: React.FC<PopupProps> = ({ localData }) => {
   }, []);
 
   const handleClick = () => {
-    console.log("clicked");
-    console.log("A");
-    console.log(currentUrl);
     setHighlightListUrl(currentUrl);
-    console.log(currentUrl);
-    console.log(data);
   };
 
   return (
@@ -67,9 +60,9 @@ const Popup: React.FC<PopupProps> = ({ localData }) => {
         {data ? (
           <Box border={"2px"} borderColor={"black"}>
             <FolderStructure
-              highlightListUrl={highlightListUrl}
               setHighlightListUrl={setHighlightListUrl}
               data={data}
+              highlightListUrl={highlightListUrl}
             />
           </Box>
         ) : (

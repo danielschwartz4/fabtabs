@@ -1,9 +1,10 @@
-import { Box, Flex, Link, Text } from "@chakra-ui/react";
+import { Flex, Link, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
-import "../../styles/folder.css";
-import { Highlight } from "../../types/types";
 import { GrClose } from "react-icons/gr";
 import { MdOutlineOpenInNew } from "react-icons/md";
+import "../../styles/folder.css";
+import { Highlight } from "../../types/types";
+import { trimUrl } from "../../utils/utils";
 
 interface FolderProps {
   url: string;
@@ -24,19 +25,17 @@ const Folder: React.FC<FolderProps> = ({
   highlightListUrl,
 }) => {
   const [shadow, setShadow] = useState<boolean>(false);
+
   const handleMouseOver = () => {
     setShadow(true);
   };
   const handleMouseLeave = () => {
     setShadow(false);
   };
+  console.log(highlightListUrl, url);
 
   const handleClick = () => {
-    console.log("IN FOLDER", url);
-    url = url?.substring(url.indexOf("//") + 2);
-    if (url.includes("#")) {
-      url = url.substring(0, url.indexOf("#"));
-    }
+    url = trimUrl(url);
     setHighlightListUrl(url);
   };
 
@@ -56,12 +55,13 @@ const Folder: React.FC<FolderProps> = ({
       onMouseLeave={handleMouseLeave}
       onClick={handleClick}
       fontSize={"14px"}
-      whiteSpace={"nowrap"}
       textOverflow={"ellipsis"}
       padding={"8px"}
       textColor={"#170F47"}
       justify={"space-between"}
       alignItems={"center"}
+      outline={highlightListUrl === trimUrl(url) ? "solid" : ""}
+      outlineColor={highlightListUrl === trimUrl(url) ? "#C1B9F1" : ""}
     >
       <Text
         padding={2}

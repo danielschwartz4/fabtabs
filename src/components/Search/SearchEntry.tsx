@@ -25,7 +25,6 @@ const SearchEntry: React.FC<SearchEntryProps> = ({
       arguments: uuid,
     });
   };
-  console.log(currentUrl == href?.substring(href.indexOf("//") + 2));
 
   return (
     <Box
