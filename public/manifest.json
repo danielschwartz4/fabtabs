@@ -27,8 +27,8 @@
   "commands": {
     "execute-highlight": {
       "suggested_key": {
-        "default": "Ctrl+H",
-        "mac": "MacCtrl+H"
+        "default": "Ctrl+Space",
+        "mac": "MacCtrl+Space"
       },
       "description": "Highlight selected text"
     }
