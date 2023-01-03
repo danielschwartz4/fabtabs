@@ -30,7 +30,7 @@ const Results: React.FC<ResultsProps> = ({
     >
       <Title text="pages" />
       <Stack overflow={"scroll"} borderRadius={"4px"} padding={4}>
-        {titleData && titleData.length > 0 ? (
+        {titleData && titleData.length > 0 && titleData[0].highlights[0] ? (
           titleData.map((val: PageGroup, idx: number) => {
             return (
               <SearchEntry
@@ -46,7 +46,7 @@ const Results: React.FC<ResultsProps> = ({
           <Title text="no page matches" />
         )}
       </Stack>
-      <Title text="highlights"></Title>
+      <Title text="highlights" />
       <Stack overflow={"scroll"} borderRadius={"4px"} padding={4}>
         {highlightData && highlightData.length > 0 ? (
           highlightData.map((val: Highlight, idx: number) => {
