@@ -32,13 +32,12 @@ const Folder: React.FC<FolderProps> = ({
   };
 
   const handleClick = () => {
+    console.log("IN FOLDER", url);
     url = url?.substring(url.indexOf("//") + 2);
-    if (url.includes("//")) {
+    if (url.includes("#")) {
       url = url.substring(0, url.indexOf("#"));
     }
-    console.log(highlightListUrl);
     setHighlightListUrl(url);
-    console.log(highlightListUrl);
   };
 
   return (

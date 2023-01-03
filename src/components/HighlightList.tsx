@@ -8,7 +8,6 @@ interface HighlightListProps {
   data: DataType;
   url: string;
   highlightListUrl: string | undefined;
-  // setHighlightListUrl: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 
 const HighlightList: React.FC<HighlightListProps> = ({
@@ -44,7 +43,7 @@ const HighlightList: React.FC<HighlightListProps> = ({
             );
           })}
         </Stack>
-      ) : url && data[url]["highlights"] ? (
+      ) : url && data[url] ? (
         <Stack overflow={"scroll"} borderRadius={"4px"} padding={4}>
           <Title text={"highlights on selected page"} />
           {data[url]["highlights"].map(function (h, i) {
@@ -59,7 +58,9 @@ const HighlightList: React.FC<HighlightListProps> = ({
             );
           })}
         </Stack>
-      ) : null}
+      ) : (
+        <Title text="You haven't made any highlights on this page :'(" />
+      )}
     </>
   );
 };
