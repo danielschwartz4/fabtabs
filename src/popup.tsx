@@ -20,7 +20,6 @@ const Popup: React.FC<PopupProps> = ({ localData }) => {
   const [currentUrl, setCurrentUrl] = useState<string>();
   const [currentTitle, setCurrentTitle] = useState<string>();
   const [highlightListUrl, setHighlightListUrl] = useState<string>();
-  console.log(highlightListUrl);
 
   useEffect(() => {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
@@ -36,15 +35,14 @@ const Popup: React.FC<PopupProps> = ({ localData }) => {
     setData(localData);
   }, []);
 
-  useEffect(() => {
-    console.log("HERE");
-    if (data && highlightListUrl) {
-      console.log("TEST");
-      console.log(data);
-      console.log(highlightListUrl);
-      console.log(data[highlightListUrl]);
-    }
-  }, [highlightListUrl]);
+  const handleClick = () => {
+    console.log("clicked");
+    console.log("A");
+    console.log(currentUrl);
+    setHighlightListUrl(currentUrl);
+    console.log(currentUrl);
+    console.log(data);
+  };
 
   return (
     <Box padding={".5em"} margin={"-8px"}>
@@ -59,7 +57,7 @@ const Popup: React.FC<PopupProps> = ({ localData }) => {
       >
         <Search currentUrl={currentUrl} data={data} />
         {currentTitle ? (
-          <Box>
+          <Box onClick={handleClick}>
             <Box padding={4}>
               <Title text={"current page"} />
             </Box>
