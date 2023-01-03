@@ -5,7 +5,12 @@ interface FooterProps {}
 
 const Footer: React.FC<FooterProps> = ({}) => {
   return (
-    <Flex justify={"space-between"} textColor={"#8C8C8C"}>
+    <Flex
+      padding={"4px"}
+      bgColor={"white"}
+      justify={"space-between"}
+      textColor={"#8C8C8C"}
+    >
       <Text m={"0px"} ml={"8px"}>
         made by Daniel and Olivia
       </Text>

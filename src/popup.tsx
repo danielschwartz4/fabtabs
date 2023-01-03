@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import Entry from "./components/Entry";
 import FolderStructure from "./components/FolderStructure/FolderStructure";
+import Footer from "./components/Footer";
 import HighlightList from "./components/HighlightList";
 import Popover from "./components/Popover";
 import Search from "./components/Search/Search";
@@ -42,9 +43,9 @@ const Popup: React.FC<PopupProps> = ({ localData }) => {
 
   console.log(data);
   return (
-    <Box padding={".5em"} margin={"-8px"}>
+    <Stack bgColor={"#F3F2F9"} h={"575px"} padding={".5em"} margin={"-8px"}>
       <Stack
-        h={"567px"}
+        h={"95%"}
         w={"336px"}
         m={"-8px"}
         p={"1em"}
@@ -103,8 +104,11 @@ const Popup: React.FC<PopupProps> = ({ localData }) => {
           )}
         </Box>
       </Stack>
-      {/* <Footer></Footer> */}
-    </Box>
+      {/* <Box bgColor={"white"} padding={"4px"}>
+        hello
+      </Box> */}
+      <Footer></Footer>
+    </Stack>
   );
 };
 
