@@ -6,7 +6,7 @@ interface FooterProps {}
 const Footer: React.FC<FooterProps> = ({}) => {
   return (
     <Flex
-      padding={"4px"}
+      // padding={"4px"}
       // bgColor={"white"}
       justify={"space-between"}
       textColor={"#8C8C8C"}

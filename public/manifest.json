@@ -27,8 +27,8 @@
   "commands": {
     "execute-highlight": {
       "suggested_key": {
-        "default": "Ctrl+Shift+P",
-        "mac": "Ctrl+Shift+P"
+        "default": "Ctrl+H",
+        "mac": "MacCtrl+H"
       },
       "description": "Highlight selected text"
     }
