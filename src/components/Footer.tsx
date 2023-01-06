@@ -8,7 +8,7 @@ const Footer: React.FC<FooterProps> = ({}) => {
     <Flex justify={"space-between"} textColor={"#8C8C8C"}>
       <Text m={"0px"} ml={"8px"}>
         {/* made by Daniel and Olivia */}
-        made by Daniel
+        Fabtabs
       </Text>
       <Text m={"0px"} mr={"8px"}>
         highlight with cmd/ctrl+h

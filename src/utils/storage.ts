@@ -38,6 +38,7 @@ export async function store(
   };
 
   const count = tabs[url]["highlights"].push(obj);
+  console.log("TABS", tabs);
   chrome.storage.local.set({ tabs });
 
   // Return the index of the new highlight:
@@ -77,6 +78,7 @@ export async function loadAll(
 }
 
 export function load(highlightVal: Highlight, highlightIndex: number) {
+  // !! Fix this
   const selection = {
     anchorNode: elementFromQuery(highlightVal.anchorNode) as Node,
     anchorOffset: highlightVal.anchorOffset,

@@ -15,6 +15,12 @@ export type DataType = {
   [url: string]: PageGroup;
 };
 
+// export type PageGroup = {
+//   highlights: Highlight[];
+//   title: string;
+//   favicon: string;
+// };
+
 export type PageGroup = {
   highlights: Highlight[];
   title: string;
@@ -28,6 +34,16 @@ export interface Highlight {
   anchorOffset: number;
   focusNode: string;
   focusOffset: number;
+  color: string;
+  textColor: string;
+  href: string;
+  uuid: string;
+  createdAt: number;
+}
+
+export interface HighlightType {
+  selection: string;
+  container: string;
   color: string;
   textColor: string;
   href: string;
