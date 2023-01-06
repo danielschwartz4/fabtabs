@@ -4,6 +4,7 @@ export function initializeKeyboardShortcutEventListeners() {
   // Add Keyboard shortcuts
   chrome.commands.onCommand.addListener(async (command) => {
     console.log("COMMAND");
+
     switch (command) {
       case "execute-highlight":
         console.log("in");

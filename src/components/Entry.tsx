@@ -26,7 +26,6 @@ const Entry: React.FC<EntryProps> = ({
       arguments: uuid,
     });
   };
-  console.log("IN ENTRY");
 
   return (
     <Flex

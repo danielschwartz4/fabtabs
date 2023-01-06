@@ -21,6 +21,7 @@ export function highlight(
   const posBitMap = selection.anchorNode.compareDocumentPosition(
     selection.focusNode
   );
+  console.log("posBitMap", posBitMap);
   if (posBitMap === 2 || posBitMap === 0) {
     range.setStart(selection.focusNode, selection.focusOffset);
     range.setEnd(selection.anchorNode, selection.anchorOffset);
@@ -28,25 +29,28 @@ export function highlight(
     range.setStart(selection.anchorNode, selection.anchorOffset);
     range.setEnd(selection.focusNode, selection.focusOffset);
   }
-
-  // if (selection.anchorOffset < selection.focusOffset) {
-  //   console.log("A")
-  //   range.setStart(selection.anchorNode, selection.anchorOffset);
-  //   range.setEnd(selection.focusNode, selection.focusOffset);
-  // } else {
-  //   console.log("B");
-  //   range.setStart(selection.focusNode, selection.focusOffset);
-  //   range.setEnd(selection.anchorNode, selection.anchorOffset);
-  // }
   console.log("RANGE: ", range);
-
   if (range) {
     const highlighted = document.createElement("mark");
     highlighted.classList.add("highlighter--highlighted");
     highlighted.dataset.highlightId = uuid;
     highlighted.appendChild(range.extractContents());
     console.log("highlighted", highlighted);
+    console.log("children", highlighted.childNodes);
     range.insertNode(highlighted);
+
+    //
+    // console.log(range.cloneContents());
+    // for (let c of range.cloneContents().childNodes) {
+    //   console.log("C doc", c.ownerDocument?.DOCUMENT_FRAGMENT_NODE);
+    //   const highlighted = document.createElement("mark");
+    //   highlighted.classList.add("highlighter--highlighted");
+    //   highlighted.dataset.highlightId = uuid;
+    //   highlighted.appendChild(c);
+    //   console.log("highlighted", highlighted);
+    //   range.insertNode(c);
+    // }
+    // range.deleteContents();
   }
   return true;
 

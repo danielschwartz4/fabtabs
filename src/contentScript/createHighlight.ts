@@ -24,18 +24,6 @@ export async function createHighlight(
     favicon
   );
 
-  // !! Doesn't load back on some pages, change what we store
-  // const range = selection?.getRangeAt(0);
-
-  // if (range) {
-  //   const highlighted = document.createElement("mark");
-  //   highlighted.classList.add("highlighter--highlighted");
-  //   highlighted.dataset.highlightId = uuid;
-  //   highlighted.appendChild(range.extractContents());
-  //   console.log("highlighted", highlighted);
-  //   range.insertNode(highlighted);
-  // }
-
   highlight(
     selectionString,
     container as Element,
