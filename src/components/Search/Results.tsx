@@ -7,6 +7,7 @@ import SearchEntry from "./SearchEntry";
 interface ResultsProps {
   searchVal: string;
   highlightData: Highlight[] | undefined;
+  commentData: Highlight[] | undefined;
   titleData: PageGroup[] | undefined;
   currentUrl: string | undefined;
 }
@@ -14,6 +15,7 @@ interface ResultsProps {
 const Results: React.FC<ResultsProps> = ({
   searchVal,
   highlightData,
+  commentData,
   titleData,
   currentUrl,
 }) => {
@@ -55,6 +57,24 @@ const Results: React.FC<ResultsProps> = ({
                 key={idx}
                 href={val.href}
                 text={val.string}
+                searchVal={searchVal}
+                uuid={val.uuid}
+              />
+            );
+          })
+        ) : (
+          <Title text="no highlight" />
+        )}
+      </Stack>
+      <Title text="comments" />
+      <Stack overflow={"scroll"} borderRadius={"4px"} padding={4}>
+        {commentData && commentData.length > 0 ? (
+          commentData.map((val: Highlight, idx: number) => {
+            return (
+              <SearchEntry
+                key={idx}
+                href={val.href}
+                text={val.comment}
                 searchVal={searchVal}
                 uuid={val.uuid}
               />
