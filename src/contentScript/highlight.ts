@@ -33,7 +33,7 @@ export function highlight(
       tooltip.id = "highlighter-tooltip";
       tooltip.type = "text";
       tooltip.style.position = "absolute";
-      tooltip.style.backgroundColor = "white";
+      tooltip.style.backgroundColor = document.body.style.backgroundColor;
       tooltip.style.padding = "10px";
       tooltip.style.outline = "none";
       tooltip.style.borderRadius = "5px";
