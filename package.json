@@ -23,8 +23,10 @@
     "@fontsource/bagnard": "^4.5.4",
     "@fontsource/clear-sans": "^4.5.3",
     "@fontsource/molengo": "^4.5.11",
+    "@google-cloud/local-auth": "2.1.0",
     "crypto-randomuuid": "^1.0.0",
     "framer-motion": "^8.0.2",
+    "googleapis": "105",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-icons": "^4.7.1"

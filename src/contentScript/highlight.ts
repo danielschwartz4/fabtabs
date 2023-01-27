@@ -21,7 +21,7 @@ export function highlight(
   const posBitMap = selection.anchorNode.compareDocumentPosition(
     selection.focusNode
   );
-  console.log("posBitMap", posBitMap);
+
   if (posBitMap === 2 || posBitMap === 0) {
     range.setStart(selection.focusNode, selection.focusOffset);
     range.setEnd(selection.anchorNode, selection.anchorOffset);
@@ -35,8 +35,40 @@ export function highlight(
     highlighted.classList.add("highlighter--highlighted");
     highlighted.dataset.highlightId = uuid;
     highlighted.appendChild(range.extractContents());
-    console.log("highlighted", highlighted);
-    console.log("children", highlighted.childNodes);
+
+    highlighted.addEventListener("mouseover", function () {
+      const tooltip = document.createElement("input");
+      tooltip.id = "highlighter-tooltip";
+      // tooltip.autofocus = true;
+
+      tooltip.type = "text";
+      tooltip.style.position = "absolute";
+      tooltip.style.backgroundColor = "white";
+      tooltip.style.padding = "10px";
+      tooltip.style.outline = "none";
+      tooltip.style.borderRadius = "5px";
+      tooltip.style.borderColor = "#C1B9F1";
+
+      let timeoutId: any;
+
+      tooltip.addEventListener("input", function () {
+        tooltip.style.borderColor = "green";
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(function () {
+          tooltip.style.borderColor = "#C1B9F1";
+        }, 300);
+      });
+
+      highlighted.appendChild(tooltip);
+      tooltip.focus();
+    });
+
+    highlighted.addEventListener("mouseout", function () {
+      const tooltip = document.getElementById("highlighter-tooltip");
+      // if (tooltip?.autofocus) tooltip.autofocus = false;
+      highlighted.removeChild(tooltip as HTMLElement);
+    });
+
     range.insertNode(highlighted);
 
     //

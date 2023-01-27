@@ -15,6 +15,7 @@ const HighlightList: React.FC<HighlightListProps> = ({
   url,
   highlightListUrl,
 }) => {
+  console.log(highlightListUrl);
   const [update, setUpdate] = useState<boolean>(false);
   const handleFolderDelete = async (uuid: string) => {
     if (!data[url]) return;

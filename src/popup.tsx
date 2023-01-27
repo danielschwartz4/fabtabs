@@ -23,6 +23,7 @@ const Popup: React.FC<PopupProps> = ({ localData }) => {
   const [currentTitle, setCurrentTitle] = useState<string>();
   const [currentFavicon, setCurrentFavicon] = useState<string>();
   const [highlightListUrl, setHighlightListUrl] = useState<string>();
+  console.log("DATA", data);
 
   useEffect(() => {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
@@ -47,7 +48,6 @@ const Popup: React.FC<PopupProps> = ({ localData }) => {
       <Stack
         h={"95%"}
         w={"336px"}
-        // m={"-8px"}
         p={"1em"}
         bgColor={"#F3F2F9"}
         fontFamily={"Molengo"}
@@ -108,9 +108,6 @@ const Popup: React.FC<PopupProps> = ({ localData }) => {
           )}
         </Box>
       </Stack>
-      {/* <Box bgColor={"white"} padding={"4px"}>
-        hello
-      </Box> */}
       <Footer></Footer>
     </Stack>
   );

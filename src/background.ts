@@ -1,4 +1,3 @@
-import { initializeBadgeEvents } from "./background/badgeEvents";
 import { contextMenus } from "./background/contextMenus";
 import { initializeKeyboardShortcutEventListeners } from "./background/keyboardShortcuts";
 import { initializeMessageEventListeners } from "./background/messageEvents";

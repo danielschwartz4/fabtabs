@@ -18,18 +18,13 @@ data: {
 }
 
 TODO now
-- click into highlighted notes
+- Comments and search by comment
+- Organization (projects)
+- Tagging
+- Remind you of your comments
 - Highlight everything
+- Filter by date, tags, comments
 
-TODO
-- click into highlighted notes
-- Organize
-- allow user to write notes
-- Highlight everything
-- highlights on a page number circle
-- ChatGPT
 
-Hacky things:
-- setting timeout for event listener in content script
 
 Delete storage: chrome.storage.local.clear()
