@@ -31,6 +31,7 @@ export async function store(
     focusNode: getQuery(selection.focusNode as Element),
     focusOffset: selection.focusOffset,
     color,
+    comment: "",
     textColor,
     href,
     uuid: uuid,
@@ -38,7 +39,6 @@ export async function store(
   };
 
   const count = tabs[url]["highlights"].push(obj);
-  console.log("TABS", tabs);
   chrome.storage.local.set({ tabs });
 
   // Return the index of the new highlight:
@@ -73,11 +73,16 @@ export async function loadAll(
   if (!highlights) return;
 
   for (let i = 0; i < highlights.length; i++) {
-    load(highlights[i], i);
+    load(highlights[i], i, url, highlights[i].comment);
   }
 }
 
-export function load(highlightVal: Highlight, highlightIndex: number) {
+export function load(
+  highlightVal: Highlight,
+  highlightIndex: number,
+  url: string,
+  comment: string
+) {
   // !! Fix this
   const selection = {
     anchorNode: elementFromQuery(highlightVal.anchorNode) as Node,
@@ -94,7 +99,9 @@ export function load(highlightVal: Highlight, highlightIndex: number) {
     container,
     selection,
     highlightIndex,
-    highlightVal.uuid
+    highlightVal.uuid,
+    url,
+    comment
   );
 
   return success;

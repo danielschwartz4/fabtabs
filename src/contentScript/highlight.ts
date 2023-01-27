@@ -3,21 +3,13 @@ export function highlight(
   container: Element,
   selection: Selection | any,
   highlightIndex: number,
-  uuid: string
+  uuid: string,
+  url: string,
+  comment: string
 ) {
   const range = new Range();
 
-  // !! only works when anchor less than focus
-  console.log("ANCHOR");
-  console.log(selection.anchorNode, selection.anchorOffset);
-  console.log("FOCUS");
-  console.log(selection.focusNode, selection.focusOffset);
-
   // == 4 if from left, 2 if from right
-  console.log(
-    selection.anchorNode.compareDocumentPosition(selection.focusNode)
-  );
-
   const posBitMap = selection.anchorNode.compareDocumentPosition(
     selection.focusNode
   );
@@ -29,7 +21,6 @@ export function highlight(
     range.setStart(selection.anchorNode, selection.anchorOffset);
     range.setEnd(selection.focusNode, selection.focusOffset);
   }
-  console.log("RANGE: ", range);
   if (range) {
     const highlighted = document.createElement("mark");
     highlighted.classList.add("highlighter--highlighted");
@@ -47,17 +38,26 @@ export function highlight(
       tooltip.style.outline = "none";
       tooltip.style.borderRadius = "5px";
       tooltip.style.borderColor = "#C1B9F1";
-      if (prevValue) tooltip.value = prevValue;
+      if (prevValue) {
+        tooltip.value = prevValue;
+      } else if (comment) {
+        tooltip.value = comment;
+      }
 
       let timeoutId: any;
 
       tooltip.addEventListener("input", function (e) {
         tooltip.style.borderColor = "green";
         prevValue = tooltip.value;
+
         clearTimeout(timeoutId);
-        timeoutId = setTimeout(function () {
+        timeoutId = setTimeout(async function () {
           tooltip.style.borderColor = "#C1B9F1";
-        }, 300);
+          const { tabs } = await chrome.storage.local.get({ tabs: {} });
+          tabs[url]["highlights"][highlightIndex]["comment"] = prevValue;
+          chrome.storage.local.set({ tabs });
+          // Update storage
+        }, 500);
       });
 
       highlighted.appendChild(tooltip);

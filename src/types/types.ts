@@ -36,6 +36,7 @@ export interface Highlight {
   focusOffset: number;
   color: string;
   textColor: string;
+  comment: string;
   href: string;
   uuid: string;
   createdAt: number;
@@ -46,6 +47,7 @@ export interface HighlightType {
   container: string;
   color: string;
   textColor: string;
+  comment: string;
   href: string;
   uuid: string;
   createdAt: number;

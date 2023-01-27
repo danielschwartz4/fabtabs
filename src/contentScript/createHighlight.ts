@@ -29,6 +29,8 @@ export async function createHighlight(
     container as Element,
     selection as Selection,
     highlightIndex,
-    uuid
+    uuid,
+    location.hostname + location.pathname,
+    ""
   );
 }
