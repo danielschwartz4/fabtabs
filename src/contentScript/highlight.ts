@@ -36,11 +36,10 @@ export function highlight(
     highlighted.dataset.highlightId = uuid;
     highlighted.appendChild(range.extractContents());
 
+    let prevValue: string | null = null;
     highlighted.addEventListener("mouseover", function () {
       const tooltip = document.createElement("input");
       tooltip.id = "highlighter-tooltip";
-      // tooltip.autofocus = true;
-
       tooltip.type = "text";
       tooltip.style.position = "absolute";
       tooltip.style.backgroundColor = "white";
@@ -48,11 +47,13 @@ export function highlight(
       tooltip.style.outline = "none";
       tooltip.style.borderRadius = "5px";
       tooltip.style.borderColor = "#C1B9F1";
+      if (prevValue) tooltip.value = prevValue;
 
       let timeoutId: any;
 
-      tooltip.addEventListener("input", function () {
+      tooltip.addEventListener("input", function (e) {
         tooltip.style.borderColor = "green";
+        prevValue = tooltip.value;
         clearTimeout(timeoutId);
         timeoutId = setTimeout(function () {
           tooltip.style.borderColor = "#C1B9F1";
@@ -65,8 +66,9 @@ export function highlight(
 
     highlighted.addEventListener("mouseout", function () {
       const tooltip = document.getElementById("highlighter-tooltip");
-      // if (tooltip?.autofocus) tooltip.autofocus = false;
-      highlighted.removeChild(tooltip as HTMLElement);
+      if (tooltip) {
+        highlighted.removeChild(tooltip);
+      }
     });
 
     range.insertNode(highlighted);
