@@ -37,7 +37,7 @@ const Results: React.FC<ResultsProps> = ({
             return (
               <SearchEntry
                 key={idx}
-                href={val.highlights[0].href}
+                href={val.highlights[0]?.href}
                 text={val.title}
                 searchVal={searchVal}
                 favicon={val.favicon}

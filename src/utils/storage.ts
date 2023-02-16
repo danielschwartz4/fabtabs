@@ -1,7 +1,6 @@
 import { highlight } from "../contentScript/highlight";
 import { Highlight } from "../types/types";
 import { elementFromQuery, getQuery } from "./storageUtils";
-import { getCurrentTab } from "./utils";
 
 let alternativeUrlIndexOffset = 0; // Number of elements stored in the alternativeUrl Key. Used to map highlight indices to correct key
 
@@ -22,6 +21,7 @@ export async function store(
   }
 
   const uuid = crypto.randomUUID();
+  console.log("SELECTION", selection);
 
   const obj: Highlight = {
     string: selection.toString(),
@@ -83,6 +83,7 @@ export function load(
   url: string,
   comment: string
 ) {
+  console.log("HIGHLIHT VAL", highlightVal);
   // !! Fix this
   const selection = {
     anchorNode: elementFromQuery(highlightVal.anchorNode) as Node,
@@ -90,9 +91,11 @@ export function load(
     focusNode: elementFromQuery(highlightVal.focusNode) as Node,
     focusOffset: highlightVal.focusOffset,
   };
+  // console.log("LOAD SELECTION", selection);
 
   const { string: selectionString } = highlightVal;
   const container = elementFromQuery(highlightVal.container) as Element;
+  // console.log("CONTAINER", container);
 
   const success = highlight(
     selectionString,

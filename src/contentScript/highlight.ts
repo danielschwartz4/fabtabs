@@ -1,32 +1,31 @@
+import { isSelectionBackwards } from "../utils/selectionIsBackwards";
+
 export function highlight(
   selString: string,
   container: Element,
-  selection: Selection | any,
+  selection: any,
   highlightIndex: number,
   uuid: string,
   url: string,
   comment: string
 ) {
+  const selectionBackwards = isSelectionBackwards(selection);
+
   const range = new Range();
 
-  // == 4 if from left, 2 if from right
-  const posBitMap = selection.anchorNode.compareDocumentPosition(
-    selection.focusNode
-  );
-
-  if (posBitMap === 2 || posBitMap === 0) {
+  if (selectionBackwards) {
     range.setStart(selection.focusNode, selection.focusOffset);
     range.setEnd(selection.anchorNode, selection.anchorOffset);
   } else {
     range.setStart(selection.anchorNode, selection.anchorOffset);
     range.setEnd(selection.focusNode, selection.focusOffset);
   }
+
   if (range) {
     const highlighted = document.createElement("mark");
     highlighted.classList.add("highlighter--highlighted");
     highlighted.dataset.highlightId = uuid;
     highlighted.appendChild(range.extractContents());
-
     let prevValue: string | null = null;
     highlighted.addEventListener("mouseover", function () {
       const tooltip = document.createElement("input");
@@ -72,19 +71,6 @@ export function highlight(
     });
 
     range.insertNode(highlighted);
-
-    //
-    // console.log(range.cloneContents());
-    // for (let c of range.cloneContents().childNodes) {
-    //   console.log("C doc", c.ownerDocument?.DOCUMENT_FRAGMENT_NODE);
-    //   const highlighted = document.createElement("mark");
-    //   highlighted.classList.add("highlighter--highlighted");
-    //   highlighted.dataset.highlightId = uuid;
-    //   highlighted.appendChild(c);
-    //   console.log("highlighted", highlighted);
-    //   range.insertNode(c);
-    // }
-    // range.deleteContents();
   }
   return true;
 

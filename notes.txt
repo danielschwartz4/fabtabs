@@ -15,16 +15,15 @@ data: {
 			posUrl: posUrl3
 		}
 	},
-}
+} 
 
-TODO now
-- Comments and search by comment
-- Organization (projects)
-- Tagging
-- Remind you of your comments
+TODO now    
+- Doesn't work when left to right if only over text
 - Highlight everything
+- make showHighlight more reliable
+----------------------------------
 - Filter by date, tags, comments
-
-
+- images
+- otter.ai?
 
 Delete storage: chrome.storage.local.clear()

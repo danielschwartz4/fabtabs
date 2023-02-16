@@ -9,7 +9,8 @@ export function initializeKeyboardShortcutEventListeners() {
       case "execute-highlight":
         console.log("in");
         const tab = await getCurrentTab();
-        setTimeout(() => {}, 1000);
+        // setTimeout(() => {}, 1000);
+        console.log("AFTER");
         sendMessageInCurrentTab(
           {
             action: "create-highlight",
