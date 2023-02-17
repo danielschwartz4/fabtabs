@@ -42,7 +42,6 @@ const Popup: React.FC<PopupProps> = ({ localData }) => {
     setHighlightListUrl(currentUrl);
   };
 
-  console.log(data);
   return (
     <Stack bgColor={"#F3F2F9"} h={"575px"} padding={".5em"} margin={"-8px"}>
       <Stack

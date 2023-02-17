@@ -13,6 +13,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ setSearchVal }) => {
   return (
     <Box>
       <Input
+        autoFocus
         variant="outline"
         onChange={(e) => handleChange(e.target.value)}
         placeholder="  🔍 search for a page or highlight"
